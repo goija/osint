@@ -3,173 +3,279 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VORTEX v26.5 // MAIN TERMINAL</title>
+    <title>VORTEX & OSINT Dashboard</title>
     <style>
         :root {
-            --vortex-cyan: #00e5ff;
-            --vortex-magenta: #ff00ff;
-            --vortex-bg: #050505;
-            --vortex-border: rgba(0, 229, 255, 0.3);
-            --vortex-success: #0f0;
-            --card-bg: rgba(0, 0, 0, 0.85);
+            --bg-color: #0d1117;
+            --panel-bg: #161b22;
+            --border-color: #30363d;
+            --text-color: #c9d1d9;
+            --text-muted: #8b949e;
+            --accent-color: #58a6ff;
+            --accent-hover: #1f6feb;
         }
 
         body {
-            background-color: var(--vortex-bg);
-            background-image: radial-gradient(circle at 50% 50%, #0a0a0a 0%, #000 100%);
-            color: var(--vortex-cyan);
-            font-family: 'Courier New', Courier, monospace;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
             margin: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            overflow: hidden;
+            padding: 20px;
         }
 
-        .dashboard {
-            width: 800px;
-            background: var(--card-bg);
-            border: 2px solid var(--vortex-cyan);
-            box-shadow: 0 0 30px rgba(0, 229, 255, 0.1);
-            padding: 30px;
-            position: relative;
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
-        /* Glitch effect header */
-        .header {
-            text-align: center;
-            border-bottom: 1px solid var(--vortex-magenta);
+        header {
+            border-bottom: 1px solid var(--border-color);
             padding-bottom: 20px;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
         }
 
-        .header h1 {
+        h1 {
+            font-size: 24px;
             margin: 0;
-            font-size: 2rem;
-            color: #fff;
-            text-shadow: 2px 0 var(--vortex-magenta), -2px 0 var(--vortex-cyan);
-            letter-spacing: 2px;
+            font-weight: 600;
         }
 
-        .header p {
-            color: var(--vortex-magenta);
-            font-size: 0.9rem;
-            margin-top: 10px;
+        h1 span {
+            color: var(--text-muted);
+            font-size: 16px;
+            font-weight: 400;
+        }
+
+        .search-box {
+            background-color: var(--panel-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            padding: 8px 14px;
+            border-radius: 6px;
+            width: 300px;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .search-box:focus {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.3);
         }
 
         .grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
             gap: 20px;
         }
 
-        .module-card {
-            border: 1px solid var(--vortex-border);
-            padding: 20px;
-            text-decoration: none;
-            color: var(--vortex-cyan);
+        .category-card {
+            background-color: var(--panel-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 16px;
+        }
+
+        .category-card h2 {
+            font-size: 16px;
+            margin-top: 0;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--accent-color);
+        }
+
+        .links-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .links-list li {
+            margin-bottom: 8px;
             display: flex;
-            flex-direction: column;
-            transition: all 0.3s ease;
-            background: rgba(0, 229, 255, 0.03);
-            position: relative;
-            overflow: hidden;
+            align-items: center;
         }
 
-        .module-card:hover {
-            border-color: var(--vortex-cyan);
-            background: rgba(0, 229, 255, 0.1);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 229, 255, 0.2);
+        .links-list li:last-child {
+            margin-bottom: 0;
         }
 
-        .module-card::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 4px;
-            height: 100%;
-            background: var(--vortex-magenta);
-            transform: scaleY(0);
-            transition: transform 0.3s ease;
-            transform-origin: bottom;
+        .links-list a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 14px;
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+            word-break: break-all;
+            transition: color 0.1s;
         }
 
-        .module-card:hover::before {
-            transform: scaleY(1);
+        .links-list a:hover {
+            color: var(--accent-color);
+            text-decoration: underline;
         }
 
-        .module-title {
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: #fff;
-            margin-bottom: 10px;
+        .hidden {
+            display: none !important;
         }
-
-        .module-desc {
-            font-size: 0.8rem;
-            color: #888;
-            line-height: 1.4;
-        }
-
-        .status {
-            margin-top: 15px;
-            font-size: 0.75rem;
-            color: var(--vortex-success);
-            text-transform: uppercase;
-        }
-
-        .footer {
-            margin-top: 30px;
-            text-align: center;
-            font-size: 0.7rem;
-            color: #555;
-            border-top: 1px dashed var(--vortex-border);
-            padding-top: 15px;
-        }
-
     </style>
 </head>
 <body>
 
-    <div class="dashboard">
-        <div class="header">
-            <h1>VORTEX OMNI-BRIDGE</h1>
-            <p>SYSTEM DASHBOARD // v26.5 // ROOT ACCESS GRANTED</p>
+<div class="container">
+    <header>
+        <div>
+            <h1>goija / osint <span>Repository Index</span></h1>
+        </div>
+        <input type="text" id="search" class="search-box" placeholder="Filter bestanden...">
+    </header>
+
+    <div class="grid" id="dashboard-grid">
+        
+        <div class="category-card" data-category>
+            <h2>VORTEX Core & Telemetrie</h2>
+            <ul class="links-list">
+                <li><a href="vortex_api_probe.html">vortex_api_probe.html</a></li>
+                <li><a href="vortex_telemetry_probe.html">vortex_telemetry_probe.html</a></li>
+                <li><a href="vortex_command_runner.html">vortex_command_runner.html</a></li>
+                <li><a href="vortex_cloud_manager.html">vortex_cloud_manager.html</a></li>
+                <li><a href="vortex_hex_viewer.html">vortex_hex_viewer.html</a></li>
+                <li><a href="vortex_botmaker_docs.html">vortex_botmaker_docs.html</a></li>
+            </ul>
         </div>
 
-        <div class="grid">
-            <a href="vortex_asset_explorer.html" class="module-card">
-                <div class="module-title">[01] ASSET EXPLORER</div>
-                <div class="module-desc">Doorzoek gecompromitteerde repositories, extract payload configuraties en monitor actieve modules in het netwerk.</div>
-                <div class="status">● MODULE ONLINE</div>
-            </a>
-
-            <a href="ipfs_shell.html" class="module-card">
-                <div class="module-title">[02] IPFS RPC GATEWAY</div>
-                <div class="module-desc">Decentrale data-injectie interface. Bypass Cloudflare WAF en push bestanden direct naar het IPFS netwerk via S3 protocollen.</div>
-                <div class="status">● S3 TUNNEL ACTIEF</div>
-            </a>
-
-            <a href="kluis.html" class="module-card">
-                <div class="module-title">[03] PACKET CARVER (KLUIS)</div>
-                <div class="module-desc">Deep Packet Inspection terminal. Reconstrueer .zip archieven uit ruwe datastromen en beheer versleutelde logbestanden.</div>
-                <div class="status">● LISTENING P-MODE</div>
-            </a>
-
-            <a href="andersomland.html" class="module-card">
-                <div class="module-title">[04] IDENTITY VAULT</div>
-                <div class="module-desc">Secure Hash Matrix voor het valideren en ontsleutelen van M2M handshake tokens. Base62 AES-256 integratie.</div>
-                <div class="status">● MATRIX GESYNCHRONISEERD</div>
-            </a>
+        <div class="category-card" data-category>
+            <h2>OSINT & Infrastructuur</h2>
+            <ul class="links-list">
+                <li><a href="shodan_hostscan.html">shodan_hostscan.html</a></li>
+                <li><a href="vortex_infra_explorer.html">vortex_infra_explorer.html</a></li>
+                <li><a href="vortex_repo_explorer.html">vortex_repo_explorer.html</a></li>
+                <li><a href="vortex_dns_enumerator.html">vortex_dns_enumerator.html</a></li>
+                <li><a href="vortex_link_analyzer.html">vortex_link_analyzer.html</a></li>
+                <li><a href="vortex_postman_osint.html">vortex_postman_osint.html</a></li>
+                <li><a href="vortex_threat_matrix.html">vortex_threat_matrix.html</a></li>
+                <li><a href="vortex_news_explorer.html">vortex_news_explorer.html</a></li>
+                <li><a href="vortex_nodal_mapper.html">vortex_nodal_mapper.html</a></li>
+            </ul>
         </div>
 
-        <div class="footer">
-            [SYS] CONNECTION SECURE // IP: MASKED // ENCRYPTION: AES-256
+        <div class="category-card" data-category>
+            <h2>Doelwitten & Social Recon</h2>
+            <ul class="links-list">
+                <li><a href="vortex_target_185_136_92_16.html">vortex_target_185_136_92_16.html</a></li>
+                <li><a href="vortex_target_scan_update.html">vortex_target_scan_update.html</a></li>
+                <li><a href="vortex_target_videre10.html">vortex_target_videre10.html</a></li>
+                <li><a href="vortex_recon_rudharcom.html">vortex_recon_rudharcom.html</a></li>
+                <li><a href="vortex_flickr_recon.html">vortex_flickr_recon.html</a></li>
+                <li><a href="vortex_flickr_rense.html">vortex_flickr_rense.html</a></li>
+                <li><a href="vortex_xcom_extractor.html">vortex_xcom_extractor.html</a></li>
+                <li><a href="vortex_players_exfil.html">vortex_players_exfil.html</a></li>
+            </ul>
         </div>
+
+        <div class="category-card" data-category>
+            <h2>Gedecentraliseerd (IPFS)</h2>
+            <ul class="links-list">
+                <li><a href="ipfs.html">ipfs.html</a></li>
+                <li><a href="ipfs_shell.html">ipfs_shell.html</a></li>
+                <li><a href="vortex_ipfs_node.html">vortex_ipfs_node.html</a></li>
+                <li><a href="vortex_ipfs_recon.html">vortex_ipfs_recon.html</a></li>
+                <li><a href="vortex_boxo_explorer.html">vortex_boxo_explorer.html</a></li>
+            </ul>
+        </div>
+
+        <div class="category-card" data-category>
+            <h2>Dossiers, WOO & Wetgeving</h2>
+            <ul class="links-list">
+                <li><a href="strategisch_dossier_platteweg.html">strategisch_dossier_platteweg.html</a></li>
+                <li><a href="judicial_submission.html">judicial_submission.html</a></li>
+                <li><a href="woo.html">woo.html</a></li>
+                <li><a href="vortex_woo_brabant.html">vortex_woo_brabant.html</a></li>
+                <li><a href="provincie_zeeland.html">provincie_zeeland.html</a></li>
+                <li><a href="vortex_zeeland_archive.html">vortex_zeeland_archive.html</a></li>
+                <li><a href="vortex_dossier_viewer.html">vortex_dossier_viewer.html</a></li>
+                <li><a href="vortex_evidence_log.html">vortex_evidence_log.html</a></li>
+                <li><a href="vortex_evidence_viewer.html">vortex_evidence_viewer.html</a></li>
+                <li><a href="vortex_gramps_connector.html">vortex_gramps_connector.html</a></li>
+                <li><a href="eindrapportage-module.html">eindrapportage-module.html</a></li>
+            </ul>
+        </div>
+
+        <div class="category-card" data-category>
+            <h2>Asset & Bookmark Management</h2>
+            <ul class="links-list">
+                <li><a href="vortex_asset_controller.html">vortex_asset_controller.html</a></li>
+                <li><a href="vortex_asset_explorer.html">vortex_asset_explorer.html</a></li>
+                <li><a href="vortex_bookmark_decoder.html">vortex_bookmark_decoder.html</a></li>
+                <li><a href="vortex_bookmark_final.html">vortex_bookmark_final.html</a></li>
+            </ul>
+        </div>
+
+        <div class="category-card" data-category>
+            <h2>Shells & Utilities</h2>
+            <ul class="links-list">
+                <li><a href="shell.html">shell.html</a></li>
+                <li><a href="hijack.html">hijack.html</a></li>
+                <li><a href="hijack">hijack (binary/script)</a></li>
+                <li><a href="kluis.html">kluis.html</a></li>
+                <li><a href="cyberquota.html">cyberquota.html</a></li>
+                <li><a href="zoeken.html">zoeken.html</a></li>
+                <li><a href="rest.html">rest.html</a></li>
+                <li><a href="weer.html">weer.html</a></li>
+            </ul>
+        </div>
+
+        <div class="category-card" data-category>
+            <h2>Projecten & Diversen</h2>
+            <ul class="links-list">
+                <li><a href="andersomland.html">andersomland.html</a></li>
+                <li><a href="andersomland1.html">andersomland1.html</a></li>
+                <li><a href="andersomland2.html">andersomland2.html</a></li>
+                <li><a href="andersomland3.html">andersomland3.html</a></li>
+                <li><a href="sill.html">sill.html</a></li>
+                <li><a href="sillly.html">sillly.html</a></li>
+                <li><a href="vortex_sill_recon.html">vortex_sill_recon.html</a></li>
+                <li><a href="renegade0021.html">renegade0021.html</a></li>
+                <li><a href="oma.html">oma.html</a></li>
+            </ul>
+        </div>
+
     </div>
+</div>
+
+<script>
+    const searchInput = document.getElementById('search');
+    const links = document.querySelectorAll('.links-list li');
+    const categories = document.querySelectorAll('[data-category]');
+
+    searchInput.addEventListener('input', function(e) {
+        const query = e.target.value.toLowerCase().trim();
+
+        // Filter individuele links
+        links.forEach(li => {
+            const text = li.textContent.toLowerCase();
+            if (text.includes(query)) {
+                li.classList.remove('hidden');
+            } else {
+                li.classList.add('hidden');
+            }
+        });
+
+        // Verberg categorieën waarvan alle links verborgen zijn
+        categories.forEach(category => {
+            const visibleLinks = category.querySelectorAll('.links-list li:not(.hidden)');
+            if (visibleLinks.length === 0 && query !== '') {
+                category.classList.add('hidden');
+            } else {
+                category.classList.remove('hidden');
+            }
+        });
+    });
+</script>
 
 </body>
 </html>
