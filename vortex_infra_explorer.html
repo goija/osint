@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VORTEX v72 // INFRASTRUCTURE EXPLORER</title>
+    <style>
+        :root {
+            --vortex-cyan: #00e5ff;
+            --vortex-magenta: #ff00ff;
+            --vortex-yellow: #ffea00;
+            --vortex-bg: #050608;
+            --panel-bg: #0a0c11;
+            --border: rgba(0, 229, 255, 0.25);
+            --text-dim: #6c7a89;
+            --neon-green: #00ff66;
+            --postman-orange: #ff6c37;
+        }
+
+        body {
+            background-color: var(--vortex-bg);
+            color: var(--vortex-cyan);
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            border-bottom: 2px solid var(--vortex-yellow);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 1.8rem;
+            color: #fff;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px var(--vortex-yellow);
+        }
+
+        .status-header {
+            background: rgba(0, 255, 102, 0.1);
+            border: 1px solid var(--neon-green);
+            color: var(--neon-green);
+            padding: 10px;
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .panel {
+            background: var(--panel-bg);
+            border: 1px solid var(--border);
+            position: relative;
+            box-shadow: inset 0 0 20px rgba(0, 229, 255, 0.02);
+            padding-bottom: 15px;
+        }
+
+        .panel-title {
+            background: rgba(0, 229, 255, 0.08);
+            color: #fff;
+            padding: 10px 15px;
+            font-weight: bold;
+            font-size: 0.95rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .panel-content { padding: 15px; }
+
+        .data-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+            border-bottom: 1px dashed rgba(255,255,255,0.05);
+            padding-bottom: 4px;
+        }
+
+        .data-label { color: var(--text-dim); }
+        .data-val { color: #fff; text-align: right; font-family: monospace; }
+        
+        .val-highlight { color: var(--vortex-yellow); font-weight: bold; }
+        .val-ok { color: var(--neon-green); }
+
+        /* RAM & CPU Visuals */
+        .meter-container {
+            width: 100%;
+            background: #222;
+            height: 12px;
+            border-radius: 6px;
+            margin: 10px 0;
+            overflow: hidden;
+            border: 1px solid #333;
+        }
+        .meter-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--vortex-cyan), var(--vortex-magenta));
+            width: 36.61%;
+        }
+
+        .terminal-box {
+            background: #000;
+            border: 1px dashed var(--vortex-magenta);
+            padding: 10px;
+            font-size: 0.8rem;
+            color: var(--vortex-magenta);
+            height: 140px;
+            overflow-y: auto;
+            font-family: monospace;
+        }
+
+        .postman-badge {
+            display: inline-block;
+            background: var(--postman-orange);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>VORTEX // INFRASTRUCTURE EXPLORER</h1>
+        <p>TELEMETRY UNIT 01 // LOAD ANALYSIS COMPLETE</p>
+    </div>
+
+    <div class="status-header">
+        [+] SYSTEEM DATA & API STRUCTUUR SUCCESVOL GEÏNDEXEERD
+    </div>
+
+    <div class="dashboard-grid">
+
+        <div class="panel">
+            <div class="panel-title" style="border-left: 4px solid var(--vortex-cyan);">
+                <span>[01] SERVER HEALTH / TELEMETRY</span>
+                <span class="val-ok">LIVE</span>
+            </div>
+            <div class="panel-content">
+                <div class="data-row"><span class="data-label">Systeem Versie:</span> <span class="data-val">3.18.7</span></div>
+                <div class="data-row"><span class="data-label">Uptime (Seconden):</span> <span class="data-val">13950522.31</span></div>
+                <div class="data-row"><span class="data-label">Uptime (Dagen):</span> <span class="data-val val-highlight">~161.4 Dagen</span></div>
+                
+                <div style="margin-top: 15px;">
+                    <div class="data-row" style="border:none; padding:0;">
+                        <span class="data-label">RAM Gebruik:</span> <span class="data-val">36.61%</span>
+                    </div>
+                    <div class="meter-container"><div class="meter-fill"></div></div>
+                </div>
+
+                <div class="data-row" style="margin-top: 15px;">
+                    <span class="data-label">CPU Load (1m|5m|15m):</span> 
+                    <span class="data-val" style="color: var(--vortex-magenta);">3.73 | 3.70 | 3.71</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel">
+            <div class="panel-title" style="border-left: 4 solid var(--postman-orange); background: rgba(255,108,55,0.05);">
+                <span>[02] API CONFIG (POSTMAN)</span>
+                <span class="postman-badge">FORK_READY</span>
+            </div>
+            <div class="panel-content">
+                <div class="data-row"><span class="data-label">Workspace ID:</span> <span class="data-val">264c2b31...0d76</span></div>
+                <div class="data-row"><span class="data-label">Collection ID:</span> <span class="data-val">4189552...b503</span></div>
+                <div class="data-row"><span class="data-label">Required Header 1:</span> <span class="data-val val-highlight">token</span></div>
+                <div class="data-row"><span class="data-label">Required Header 2:</span> <span class="data-val val-highlight">accessKey</span></div>
+
+                <div class="terminal-box" id="terminal">
+                    > System health endpoint exposed.<br>
+                    > Parsing Node/Server statistics... OK.<br>
+                    > Intercepting Postman parameters...<br>
+                    > [!] Target API requires authentication.<br>
+                    > [!] Server hasn't rebooted in 161 days.
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>

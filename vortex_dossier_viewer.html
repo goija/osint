@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <title>VORTEX v72 // DOSSIER VIEW-PORT</title>
+    <style>
+        :root {
+            --vortex-cyan: #00e5ff;
+            --vortex-magenta: #ff00ff;
+            --vortex-bg: #050608;
+            --panel-bg: #0a0c11;
+            --border: rgba(0, 229, 255, 0.25);
+            --text-dim: #6c7a89;
+            --alert-red: #ff0033;
+            --leaf-green: #00ff66;
+        }
+
+        body {
+            background-color: var(--vortex-bg);
+            color: var(--vortex-cyan);
+            font-family: 'Segoe UI', 'Courier New', monospace;
+            margin: 0; padding: 20px;
+        }
+
+        .container { max-width: 1100px; margin: 0 auto; }
+
+        .header {
+            text-align: center;
+            border-bottom: 2px solid var(--vortex-magenta);
+            padding-bottom: 10px; margin-bottom: 30px;
+        }
+
+        .header h1 { margin: 0; letter-spacing: 4px; text-shadow: 0 0 10px var(--vortex-magenta); }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 20px;
+        }
+
+        .panel {
+            background: var(--panel-bg);
+            border: 1px solid var(--border);
+            padding: 20px;
+            position: relative;
+        }
+
+        .panel-title {
+            color: #fff;
+            font-weight: bold;
+            border-bottom: 1px solid var(--vortex-cyan);
+            margin-bottom: 15px;
+            padding-bottom: 5px;
+            text-transform: uppercase;
+        }
+
+        .data-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+        .data-table td { padding: 8px 0; border-bottom: 1px solid #1a1d23; }
+        .val { color: #fff; text-align: right; }
+        .critical { color: var(--alert-red); font-weight: bold; }
+
+        .remedy-box {
+            background: rgba(0, 255, 102, 0.05);
+            border-left: 4px solid var(--leaf-green);
+            padding: 15px;
+            margin-top: 15px;
+        }
+
+        .btn-print {
+            display: block; width: 100%;
+            background: var(--vortex-magenta);
+            color: #fff; border: none;
+            padding: 12px; margin-top: 20px;
+            cursor: pointer; font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .btn-print:hover { background: #fff; color: #000; box-shadow: 0 0 15px var(--vortex-magenta); }
+
+        @media print {
+            .btn-print { display: none; }
+            body { background: white; color: black; }
+            .panel { border: 1px solid #ccc; background: white; }
+            .panel-title { color: black; border-bottom: 1px solid black; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="header">
+            <h1>VORTEX // DOSSIER VIEW-PORT</h1>
+            <p>CASE: PLATTEWEG 3-5-7 // TARGET: WANBEHEER & BODEMSCHULD</p>
+        </div>
+
+        <div class="dashboard-grid">
+            
+            <div class="panel">
+                <div class="panel-title">Financiële Anomalieën</div>
+                <table class="data-table">
+                    <tr><td>Mantelzorg Elenbaas</td><td class="val critical">€ 5.238,00</td></tr>
+                    <tr><td>Onverklaarde Onttrekking</td><td class="val critical">€ 20.000,00</td></tr>
+                    <tr><td>Zorgclaim Ponse 2024</td><td class="val">€ 14.506,00</td></tr>
+                    <tr><td>Status</td><td class="val" style="color:var(--alert-red)">GEBLOKKEERD</td></tr>
+                </table>
+                <p style="font-size: 0.75rem; color: var(--text-dim); margin-top: 10px;">
+                    > Persoonlijke aansprakelijkheid beheerder geactiveerd.<br>
+                    > Belangenverstrengeling Ponse gedocumenteerd.
+                </p>
+            </div>
+
+            <div class="panel">
+                <div class="panel-title">Bodem & Saneringsdruk</div>
+                <table class="data-table">
+                    <tr><td>Latente Saneringsschuld</td><td class="val">€ 110.925,00</td></tr>
+                    <tr><td>Fysieke Claim (35m³)</td><td class="val critical">€ 42.072,00</td></tr>
+                    <tr><td>Wbb-Beperking</td><td class="val">ACTIEF</td></tr>
+                </table>
+                
+                <div class="remedy-box">
+                    <strong>SCENARIO B: DE PROEFTUIN</strong><br>
+                    <span style="font-size: 0.8rem; color: var(--leaf-green);">Fytoremediatie middels vlas & hennep.<br>Kostenreductie: 85%</span>
+                </div>
+            </div>
+
+            <div class="panel">
+                <div class="panel-title">Juridische Hefbomen</div>
+                <ul style="font-size: 0.8rem; padding-left: 20px;">
+                    <li><strong>Verdrag van Aarhus:</strong> Dwingt openheid over emissiegegevens.</li>
+                    <li><strong>Akte van Bevindingen:</strong> Notariële blokkade op verdeling.</li>
+                    <li><strong>VASN Agri-notaris:</strong> Vereiste voor onafhankelijke vereffening.</li>
+                    <li><strong>Basel IV:</strong> Bodemstigma maakt object onfinancierbaar.</li>
+                </ul>
+                <button class="btn-print" onclick="window.print()">Genereer PDF Rapport</button>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>

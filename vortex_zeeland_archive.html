@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VORTEX v72 // ZEELAND LINEAGE TRACKER</title>
+    <style>
+        :root {
+            --vortex-cyan: #00e5ff;
+            --vortex-magenta: #ff00ff;
+            --vortex-yellow: #ffea00;
+            --vortex-bg: #050608;
+            --panel-bg: #0a0c11;
+            --border: rgba(0, 229, 255, 0.25);
+            --text-dim: #6c7a89;
+            --archive-blue: #0055aa;
+        }
+
+        body {
+            background-color: var(--vortex-bg);
+            color: var(--vortex-cyan);
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0; padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            border-bottom: 2px solid var(--archive-blue);
+            padding-bottom: 10px; margin-bottom: 20px;
+        }
+
+        .header h1 { margin: 0; font-size: 1.8rem; color: #fff; letter-spacing: 2px; text-shadow: 0 0 10px var(--archive-blue); }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .panel {
+            background: var(--panel-bg);
+            border: 1px solid var(--border);
+            position: relative;
+            box-shadow: inset 0 0 20px rgba(0, 229, 255, 0.02);
+            padding-bottom: 15px;
+        }
+
+        .panel-title {
+            background: rgba(0, 85, 170, 0.15);
+            color: #fff;
+            padding: 10px 15px;
+            font-weight: bold;
+            font-size: 0.95rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .panel-content { padding: 15px; }
+
+        .target-tag {
+            display: inline-block;
+            background: rgba(255, 0, 255, 0.1);
+            border: 1px solid var(--vortex-magenta);
+            color: var(--vortex-magenta);
+            padding: 4px 8px;
+            margin: 4px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .target-tag:hover { background: var(--vortex-magenta); color: #000; }
+
+        .terminal-box {
+            background: #000;
+            border: 1px dashed var(--vortex-magenta);
+            padding: 10px;
+            font-size: 0.8rem;
+            color: var(--vortex-magenta);
+            height: 250px;
+            overflow-y: auto;
+            font-family: monospace;
+        }
+
+        .btn-archive {
+            display: block; width: 100%;
+            background: var(--archive-blue);
+            color: #fff; border: none;
+            padding: 12px; text-align: center;
+            cursor: pointer; font-family: inherit;
+            font-weight: bold; text-transform: uppercase;
+            margin-top: 15px;
+        }
+
+        .btn-archive:hover { background: #0077ff; box-shadow: 0 0 15px var(--archive-blue); }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>VORTEX // ZEELAND LINEAGE TRACKER</h1>
+        <p>REGIONAL DATA CORRELATION // KRANTENBANK & WOO-IPFS</p>
+    </div>
+
+    <div class="dashboard-grid">
+
+        <div class="panel">
+            <div class="panel-title" style="border-left: 4px solid var(--vortex-yellow);">
+                <span>[01] IDENTIFIED TARGET STRINGS</span>
+            </div>
+            <div class="panel-content">
+                <p style="font-size: 0.8rem; color: #ccc;">Klik op een entiteit om een diepe scan te triggeren:</p>
+                <div id="tag-container">
+                    <span class="target-tag" onclick="scanTarget('Schot')">Schot</span>
+                    <span class="target-tag" onclick="scanTarget('Bout')">Bout</span>
+                    <span class="target-tag" onclick="scanTarget('Guiljam')">Guiljam</span>
+                    <span class="target-tag" onclick="targetScan('De Graaf')">De Graaf</span>
+                    <span class="target-tag" onclick="scanTarget('Paulusse')">Paulusse</span>
+                    <span class="target-tag" onclick="scanTarget('Quaak')">Quaak</span>
+                </div>
+                
+                <a href="https://krantenbankzeeland.nl/" target="_blank" class="btn-archive">
+                    [>] OPEN REMOTE DATABASE
+                </a>
+            </div>
+        </div>
+
+        <div class="panel">
+            <div class="panel-title" style="border-left: 4px solid var(--vortex-magenta);">
+                <span>[02] RECON LOG (CROSS-REFERENCE)</span>
+            </div>
+            <div class="panel-content">
+                <div class="terminal-box" id="terminal">
+> VORTEX Lineage Tracker Active...
+> Cross-referencing Target List with IPFS QmZEY...
+> Scanning PZC Archives (1758-2024)...
+> [!] Initial correlation complete.
+> System ready for deep-dive.
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function scanTarget(name) {
+            const term = document.getElementById('terminal');
+            term.innerHTML += `<br>> <span style="color:var(--vortex-cyan)">TRIGGERED:</span> Deep-scan for '${name.toUpperCase()}'`;
+            term.innerHTML += `<br>> Fetching family notices from Krantenbank Zeeland...`;
+            term.innerHTML += `<br>> Checking WOO-Zeeland local cache for matches...`;
+            
+            if(name === 'Bout') {
+                term.innerHTML += `<br>> <span style="color:var(--vortex-yellow)">[!] MATCH FOUND:</span> Correlation with actor @Wbout1 detected.`;
+            }
+            if(name === 'Guiljam') {
+                term.innerHTML += `<br>> <span style="color:var(--vortex-yellow)">[!] MATCH FOUND:</span> Administrative link in Provinciale Verslagen (1998).`;
+            }
+            
+            term.scrollTop = term.scrollHeight;
+        }
+    </script>
+</body>
+</html>

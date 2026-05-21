@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <title>VORTEX v72 // GRAMPS CONNECTOR</title>
+    <style>
+        :root {
+            --vortex-cyan: #00e5ff;
+            --vortex-magenta: #ff00ff;
+            --vortex-bg: #050608;
+            --panel-bg: #0a0c11;
+            --border: rgba(0, 229, 255, 0.25);
+            --gramps-orange: #ff9900;
+        }
+
+        body {
+            background-color: var(--vortex-bg);
+            color: var(--vortex-cyan);
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0; padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            border-bottom: 2px solid var(--gramps-orange);
+            padding-bottom: 10px; margin-bottom: 20px;
+        }
+
+        .header h1 { margin: 0; letter-spacing: 2px; text-shadow: 0 0 10px var(--gramps-orange); }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .panel {
+            background: var(--panel-bg);
+            border: 1px solid var(--border);
+            padding: 15px;
+        }
+
+        .panel-title {
+            background: rgba(255, 153, 0, 0.1);
+            color: #fff;
+            padding: 8px;
+            font-weight: bold;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 15px;
+        }
+
+        .csv-preview {
+            background: #000;
+            color: #00ff66;
+            padding: 10px;
+            font-size: 0.75rem;
+            height: 200px;
+            overflow-y: auto;
+            border: 1px solid #333;
+            white-space: pre;
+        }
+
+        .btn-export {
+            display: block;
+            width: 100%;
+            background: var(--gramps-orange);
+            color: #000;
+            border: none;
+            padding: 12px;
+            margin-top: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            text-transform: uppercase;
+        }
+
+        .btn-export:hover { background: #fff; box-shadow: 0 0 15px var(--gramps-orange); }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>VORTEX // GRAMPS CONNECTOR</h1>
+        <p>STAMBOOM INJECTIE // TARGET: ZEEUWSE LINEAGE</p>
+    </div>
+
+    <div class="dashboard-grid">
+        <div class="panel">
+            <div class="panel-title">[01] GRAMPS CSV PREVIEW</div>
+            <div class="csv-preview" id="csvPreview">
+person,given,surname,gender,birthdate,birthplace
+p1,W.,Bout,M,,Tholen
+p2,J.,Schot,M,,Zierikzee
+p3,M.,Paulusse,F,,Schouwen-Duiveland
+p4,C.,Quaak,M,,Sint-Maartensdijk
+p5,L.,Guiljam,M,,Tholen
+            </div>
+            <button class="btn-export" onclick="downloadCSV()">[>] DOWNLOAD VOOR GRAMPS IMPORT</button>
+        </div>
+
+        <div class="panel">
+            <div class="panel-title">[02] IMPORT INSTRUCTIES</div>
+            <div style="font-size: 0.8rem; line-height: 1.5;">
+                1. Open <strong>Gramps</strong>.<br>
+                2. Ga naar <i>Stambomen -> Importeren</i>.<br>
+                3. Selecteer het gedownloade CSV-bestand.<br>
+                4. Gebruik in het importvenster (jouw screenshot) de <strong>Komma (,)</strong> als scheidingsteken.<br>
+                5. Koppel de kolommen 'surname' aan 'Achternaam' en 'given' aan 'Voornamen'.<br><br>
+                <span style="color: var(--vortex-magenta);">[!] VORTEX TIP:</span> Door deze import koppel je de digitale actor <strong>@Wbout1</strong> direct aan een fysieke entiteit in je stamboom-database.
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function downloadCSV() {
+            const csvContent = document.getElementById('csvPreview').innerText;
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement("a");
+            const url = URL.createObjectURL(blob);
+            link.setAttribute("href", url);
+            link.setAttribute("download", "vortex_targets_gramps.csv");
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VORTEX v72 // BOOKMARK DECODER</title>
+    <style>
+        :root {
+            --vortex-cyan: #00e5ff;
+            --vortex-magenta: #ff00ff;
+            --vortex-yellow: #ffea00;
+            --vortex-bg: #050608;
+            --panel-bg: #0a0c11;
+            --border: rgba(0, 229, 255, 0.25);
+            --text-dim: #6c7a89;
+            --neon-green: #00ff66;
+        }
+
+        body {
+            background-color: var(--vortex-bg);
+            color: var(--vortex-cyan);
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            border-bottom: 2px solid var(--vortex-cyan);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 1.8rem;
+            color: #fff;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px var(--vortex-cyan);
+        }
+
+        .file-banner {
+            background: rgba(0, 229, 255, 0.05);
+            border: 1px solid var(--border);
+            color: #ccc;
+            padding: 10px;
+            text-align: center;
+            font-size: 0.8rem;
+            margin-bottom: 20px;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .panel {
+            background: var(--panel-bg);
+            border: 1px solid var(--border);
+            position: relative;
+            box-shadow: inset 0 0 20px rgba(0, 229, 255, 0.02);
+            padding-bottom: 15px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .panel::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 3px;
+            background: linear-gradient(90deg, var(--vortex-cyan), transparent);
+        }
+
+        .panel-title {
+            background: rgba(0, 229, 255, 0.08);
+            color: #fff;
+            padding: 10px 15px;
+            font-weight: bold;
+            font-size: 0.95rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .panel-content { padding: 15px; flex-grow: 1; }
+
+        .bookmark-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .bookmark-item {
+            display: flex;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid #1a1d23;
+            font-size: 0.85rem;
+        }
+
+        .bookmark-item:last-child { border: none; }
+
+        .type-icon {
+            width: 20px;
+            height: 20px;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+
+        .bookmark-link {
+            color: #fff;
+            text-decoration: none;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .bookmark-link:hover { color: var(--vortex-cyan); text-decoration: underline; }
+
+        .tag {
+            font-size: 0.65rem;
+            padding: 2px 5px;
+            border-radius: 3px;
+            margin-left: auto;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        .tag-cloud { background: var(--vortex-magenta); color: #000; }
+        .tag-social { background: #1d9bf0; color: #fff; }
+        .tag-dev { background: var(--vortex-yellow); color: #000; }
+        .tag-ops { background: var(--neon-green); color: #000; }
+
+        .btn-import {
+            display: block;
+            width: 100%;
+            background: transparent;
+            border: 1px solid var(--vortex-magenta);
+            color: var(--vortex-magenta);
+            padding: 12px;
+            text-align: center;
+            margin-top: 20px;
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .btn-import:hover {
+            background: rgba(255, 0, 255, 0.1);
+            box-shadow: 0 0 15px var(--vortex-magenta);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>VORTEX // BOOKMARK DECODER</h1>
+        <p>LOCAL TRACE ANALYSIS // PATH: /HOME/ONTWERP/BUREAUBLAD/</p>
+    </div>
+
+    <div class="file-banner">
+        [!] SOURCE DETECTED: bookmarks.html // SYNCING WITH CLOUD VAULT
+    </div>
+
+    <div class="dashboard-grid">
+
+        <div class="panel">
+            <div class="panel-title" style="border-left: 4px solid var(--vortex-cyan);">
+                <span>[01] TOPOLOGY CATEGORIES</span>
+            </div>
+            <div class="panel-content">
+                <ul class="bookmark-list">
+                    <li class="bookmark-item">
+                        <span class="bookmark-link">X.com / renegade0021</span>
+                        <span class="tag tag-social">SOCIAL_INTEL</span>
+                    </li>
+                    <li class="bookmark-item">
+                        <span class="bookmark-link">Filebase Console / Buckets</span>
+                        <span class="tag tag-cloud">CLOUD_STORAGE</span>
+                    </li>
+                    <li class="bookmark-item">
+                        <span class="bookmark-link">Google Colab / Vortex_Kernel</span>
+                        <span class="tag tag-dev">COMPUTE_UNIT</span>
+                    </li>
+                    <li class="bookmark-item">
+                        <span class="bookmark-link">Botmaker.com / API_v2</span>
+                        <span class="tag tag-ops">BOTNET_CTRL</span>
+                    </li>
+                    <li class="bookmark-item">
+                        <span class="bookmark-link">Shodan / Host_Scan</span>
+                        <span class="tag tag-ops">INFRA_RECON</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="panel">
+            <div class="panel-title" style="border-left: 4px solid var(--vortex-magenta);">
+                <span>[02] FILE INJECTION</span>
+            </div>
+            <div class="panel-content">
+                <p style="font-size: 0.8rem; color: #ccc;">Injecteer de ruwe inhoud van je <code>bookmarks.html</code> om alle verborgen URL's en metadata te mappen in de VORTEX-database.</p>
+                
+                <input type="file" id="fileInput" style="display: none;">
+                <button class="btn-import" onclick="document.getElementById('fileInput').click()">
+                    [>] UPLOAD LOCAL BOOKMARKS.HTML
+                </button>
+
+                <div style="margin-top: 15px; font-size: 0.75rem; color: var(--text-dim);">
+                    > Awaiting local file descriptor...<br>
+                    > Root: 127.0.0.1:8000 sync active.
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>

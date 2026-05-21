@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VORTEX v72 // X.COM EXTRACTOR: RENEGADE0021</title>
+    <style>
+        :root {
+            --vortex-cyan: #00e5ff;
+            --vortex-magenta: #ff00ff;
+            --vortex-yellow: #ffea00;
+            --vortex-bg: #050608;
+            --panel-bg: #0a0c11;
+            --border: rgba(0, 229, 255, 0.25);
+            --text-dim: #6c7a89;
+            --alert-red: #ff0033;
+        }
+
+        body {
+            background-color: var(--vortex-bg);
+            color: var(--vortex-cyan);
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            border-bottom: 2px solid var(--vortex-magenta);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 1.8rem;
+            color: #fff;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px var(--vortex-magenta);
+        }
+
+        .header p {
+            color: var(--text-dim);
+            font-size: 0.85rem;
+            margin-top: 5px;
+            text-transform: uppercase;
+        }
+
+        .alert-banner {
+            background-color: rgba(255, 0, 51, 0.15);
+            border: 1px solid var(--alert-red);
+            color: #fff;
+            padding: 15px;
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 20px;
+            box-shadow: 0 0 15px rgba(255, 0, 51, 0.3);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 15px rgba(255, 0, 51, 0.3); }
+            50% { box-shadow: 0 0 25px rgba(255, 0, 51, 0.6); }
+            100% { box-shadow: 0 0 15px rgba(255, 0, 51, 0.3); }
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .panel {
+            background: var(--panel-bg);
+            border: 1px solid var(--border);
+            position: relative;
+            box-shadow: inset 0 0 20px rgba(0, 229, 255, 0.02);
+        }
+
+        .panel::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 3px;
+            background: linear-gradient(90deg, var(--vortex-cyan), transparent);
+        }
+
+        .panel-title {
+            background: rgba(0, 229, 255, 0.08);
+            color: #fff;
+            padding: 10px 15px;
+            font-weight: bold;
+            font-size: 0.95rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .panel-content {
+            padding: 15px;
+        }
+
+        .data-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+            border-bottom: 1px dashed rgba(255,255,255,0.05);
+            padding-bottom: 4px;
+        }
+
+        .data-label { color: var(--text-dim); }
+        .data-val { color: #fff; text-align: right; word-break: break-all; max-width: 60%; }
+        
+        .val-true { color: #00ff66; font-weight: bold; }
+        .val-false { color: var(--alert-red); }
+        .val-highlight { color: var(--vortex-yellow); font-weight: bold; }
+
+        /* Specifieke panel kleuren */
+        .panel-ai .panel-title { border-left: 4px solid var(--vortex-magenta); }
+        .panel-finance .panel-title { border-left: 4px solid var(--vortex-yellow); }
+        .panel-identity .panel-title { border-left: 4px solid var(--vortex-cyan); }
+        .panel-system .panel-title { border-left: 4px solid var(--alert-red); }
+
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>VORTEX // STATE FRAGMENT DECODER</h1>
+        <p>DOELWIT: https://x.com/renegade0021 // STATUS: LIVE PAYLOAD GEËXTRAHEERD</p>
+    </div>
+
+    <div class="alert-banner">
+        [!] CRITICAL ALERT: Nieuwe login gedetecteerd op gekoppeld account @Wbout1 (17 april 2026).<br>
+        <span style="font-size: 0.8rem; color: #ff9999;">Actieve Live Pipeline Audio/Video (AV) verbinding gecompromitteerd.</span>
+    </div>
+
+    <div class="dashboard-grid">
+
+        <div class="panel panel-identity">
+            <div class="panel-title">
+                <span>[01] TARGET IDENTITY (VIA FLEETS/AVATAR_CONTENT)</span>
+                <span style="color: var(--vortex-cyan);">DECODED</span>
+            </div>
+            <div class="panel-content">
+                <div class="data-row"><span class="data-label">Account Naam:</span> <span class="data-val">Renegade</span></div>
+                <div class="data-row"><span class="data-label">Screen Name (@):</span> <span class="data-val val-highlight">renegade0021</span></div>
+                <div class="data-row"><span class="data-label">Extracted User ID:</span> <span class="data-val val-highlight">1547703516138840064</span></div>
+                <div class="data-row"><span class="data-label">Spaces Access:</span> <span class="data-val val-true">TRUE (only_spaces=true)</span></div>
+                <div class="data-row"><span class="data-label">Profiel URL:</span> <span class="data-val"><a href="https://x.com/renegade0021" target="_blank" style="color:var(--vortex-cyan);">Open Link</a></span></div>
+            </div>
+        </div>
+
+        <div class="panel panel-ai">
+            <div class="panel-title">
+                <span>[02] GROK & AI CAPABILITIES (EXPLORESIDEBAR)</span>
+                <span style="color: var(--vortex-magenta);">ACTIVE</span>
+            </div>
+            <div class="panel-content">
+                <div class="data-row"><span class="data-label">Grok Annotations:</span> <span class="data-val val-true">TRUE</span></div>
+                <div class="data-row"><span class="data-label">Grok Image & Imagine Annotation:</span> <span class="data-val val-true">TRUE</span></div>
+                <div class="data-row"><span class="data-label">Grok Community Note Auto-Translate:</span> <span class="data-val val-true">TRUE</span></div>
+                <div class="data-row"><span class="data-label">Grok Analysis Button (Backend):</span> <span class="data-val val-true">TRUE</span></div>
+                <div class="data-row"><span class="data-label">AI Content Generated Indicator:</span> <span class="data-val val-true">TRUE</span></div>
+                <div class="data-row"><span class="data-label">Content Disclosure Indicator:</span> <span class="data-val val-true">TRUE</span></div>
+            </div>
+        </div>
+
+        <div class="panel panel-finance">
+            <div class="panel-title">
+                <span>[03] NETWORK & LIVE PIPELINE</span>
+                <span style="color: var(--vortex-yellow);">INTERCEPTED</span>
+            </div>
+            <div class="panel-content">
+                <div class="data-row"><span class="data-label">GraphQL Query Endpoint:</span> <span class="data-val">xPdj3qaShV0CtJkEx0dcWA/ExploreSidebar</span></div>
+                <div class="data-row"><span class="data-label">Badge Count / XChat:</span> <span class="data-val val-true">INCLUDED</span></div>
+                <div class="data-row"><span class="data-label">AV Call Topic (Target @Wbout1):</span> <span class="data-val">/avcall/create/2033886068991528962</span></div>
+                <div class="data-row"><span class="data-label">Live Pipeline Status:</span> <span class="data-val val-false">NS_BINDING_ABORTED</span></div>
+            </div>
+        </div>
+
+        <div class="panel panel-system">
+            <div class="panel-title">
+                <span>[04] SYSTEM CONFIG & MODERATION</span>
+                <span style="color: var(--alert-red);">MONITORED</span>
+            </div>
+            <div class="panel-content">
+                <div class="data-row"><span class="data-label">Freedom of Speech Not Reach Fetch:</span> <span class="data-val val-true">TRUE</span></div>
+                <div class="data-row"><span class="data-label">Standardized Nudges (Misinfo):</span> <span class="data-val val-true">TRUE</span></div>
+                <div class="data-row"><span class="data-label">Video Screen Enabled:</span> <span class="data-val val-false">FALSE</span></div>
+                <div class="data-row"><span class="data-label">Tipjar Consumption:</span> <span class="data-val val-false">FALSE</span></div>
+                <div class="data-row"><span class="data-label">Cashtags Enabled:</span> <span class="data-val val-false">FALSE</span></div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>

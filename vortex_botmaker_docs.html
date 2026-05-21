@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VORTEX v72 // BOTMAKER KNOWLEDGE BASE</title>
+    <style>
+        :root {
+            --vortex-cyan: #00e5ff;
+            --vortex-magenta: #ff00ff;
+            --vortex-yellow: #ffea00;
+            --vortex-bg: #050608;
+            --panel-bg: #0a0c11;
+            --border: rgba(0, 229, 255, 0.25);
+            --text-dim: #6c7a89;
+            --neon-green: #00ff66;
+        }
+
+        body {
+            background-color: var(--vortex-bg);
+            color: var(--vortex-cyan);
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            border-bottom: 2px solid var(--vortex-cyan);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 1.8rem;
+            color: #fff;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px var(--vortex-cyan);
+        }
+
+        .header p {
+            color: var(--text-dim);
+            font-size: 0.85rem;
+            margin-top: 5px;
+            text-transform: uppercase;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 15px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .module-card {
+            background: var(--panel-bg);
+            border: 1px solid var(--border);
+            padding: 15px;
+            position: relative;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .module-card:hover {
+            border-color: var(--vortex-magenta);
+            box-shadow: 0 0 15px rgba(255, 0, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .module-card::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 3px;
+            height: 100%;
+            background: var(--vortex-cyan);
+            transition: 0.3s;
+        }
+
+        .module-card:hover::before {
+            background: var(--vortex-magenta);
+        }
+
+        .module-title {
+            color: #fff;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .module-desc {
+            color: var(--text-dim);
+            font-size: 0.85rem;
+            line-height: 1.4;
+            flex-grow: 1;
+        }
+
+        .module-status {
+            margin-top: 15px;
+            font-size: 0.75rem;
+            color: var(--neon-green);
+            font-weight: bold;
+            border-top: 1px dashed rgba(255,255,255,0.1);
+            padding-top: 10px;
+        }
+
+        .terminal-box {
+            max-width: 1400px;
+            margin: 20px auto 0;
+            background: #000;
+            border: 1px dashed var(--vortex-yellow);
+            padding: 15px;
+            font-size: 0.85rem;
+            color: var(--vortex-yellow);
+            height: 150px;
+            overflow-y: auto;
+        }
+
+        .highlight { color: var(--vortex-magenta); }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>VORTEX // BOTMAKER ARCHIVE</h1>
+        <p>OMNICHANNEL BOT PLATFORM // INDEXED DOCUMENTATION NODES</p>
+    </div>
+
+    <div class="dashboard-grid" id="grid">
+        </div>
+
+    <div class="terminal-box" id="terminal">
+        > Initializing Botmaker Knowledge Base Extractor...<br>
+        > Parsing 17 categories...<br>
+    </div>
+
+    <script>
+        const botmakerData = [
+            { title: "Callbots and WhatsApp Calling", desc: "Learn how to use AI-powered voice calls for phone and WhatsApp.", status: "ACTIVE" },
+            { title: "AI Agents", desc: "Discover the new Bot Designer with generative AI. Learn how to create bots and design flows.", status: "ACTIVE" },
+            { title: "Mailbots", desc: "Learn how to configure mailbots for email inboxes", status: "ACTIVE" },
+            { title: "Botmaker Sessions", desc: "Revisit your live sessions anytime you want. Access the full recordings and review every detail.", status: "RECORDING_ENABLED" },
+            { title: "First Steps", desc: "Section that provides relevant information for the use of the Botmaker platform.", status: "INDEXED" },
+            { title: "Creating your bot", desc: "Section that explains how to create your bot in Bot Designer", status: "INDEXED" },
+            { title: "Channel integration", desc: "Section explaining how to connect different channels with the Botmaker platform", status: "VULNERABLE_VECTORS" },
+            { title: "Using live chat with agents", desc: "Section about conversations with agents", status: "LIVE_MONITORING" },
+            { title: "Your support types", desc: "Configure and personalize your attention, provided by your bot and/or live chat.", status: "INDEXED" },
+            { title: "Variables", desc: "Create and use variables to store values. Learn everything about this topic.", status: "DATA_EXTRACTION_TARGET" },
+            { title: "Notifications", desc: "Find out what they are and how to send push notifications and templates.", status: "INDEXED" },
+            { title: "About WhatsApp", desc: "Get to know everything about Whatsapp Business Platform.", status: "INDEXED" },
+            { title: "Advanced Configurations", desc: "Section describing the advanced configurations available on the Botmaker platform.", status: "CRITICAL_SYSTEMS" },
+            { title: "Intent Chatbot (Legacy)", desc: "This section includes documentation related to the creation and management of intent chatbots before December 2021.", status: "DEPRECATED_EXPLOITS" },
+            { title: "API", desc: "General API endpoints and integration protocols.", status: "ENDPOINT_MAPPED" },
+            { title: "Reports", desc: "See how to access dashboards and reports", status: "METRICS_AVAILABLE" },
+            { title: "APIv2", desc: "Section on APIv2 documentation on the Botmaker platform", status: "ENDPOINT_MAPPED" }
+        ];
+
+        const grid = document.getElementById('grid');
+        const terminal = document.getElementById('terminal');
+
+        // Render Cards
+        botmakerData.forEach(item => {
+            const card = document.createElement('div');
+            card.className = 'module-card';
+            card.innerHTML = `
+                <div class="module-title">${item.title}</div>
+                <div class="module-desc">${item.desc}</div>
+                <div class="module-status">[ SYS_${item.status} ]</div>
+            `;
+            
+            card.addEventListener('click', () => {
+                terminal.innerHTML += `> <span class="highlight">ACCESSING:</span> ${item.title.toUpperCase()}...<br>`;
+                terminal.scrollTop = terminal.scrollHeight;
+            });
+
+            grid.appendChild(card);
+        });
+
+        // Terminal animation
+        setTimeout(() => {
+            terminal.innerHTML += `> All modules successfully mapped and loaded.<br>`;
+            terminal.innerHTML += `> System ready for deep-dive endpoint analysis.<br>`;
+            terminal.scrollTop = terminal.scrollHeight;
+        }, 1500);
+
+    </script>
+</body>
+</html>

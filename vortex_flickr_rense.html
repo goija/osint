@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VORTEX v72 // ASSET PARSER: RENSE</title>
+    <style>
+        :root {
+            --vortex-cyan: #00e5ff;
+            --vortex-magenta: #ff00ff;
+            --vortex-bg: #050608;
+            --panel-bg: #0a0c11;
+            --border: rgba(0, 229, 255, 0.25);
+            --text-dim: #6c7a89;
+            --flickr-pink: #ff0084;
+            --neon-green: #00ff66;
+        }
+
+        body {
+            background-color: var(--vortex-bg);
+            color: var(--vortex-cyan);
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            border-bottom: 2px solid var(--flickr-pink);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 1.8rem;
+            color: #fff;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px var(--flickr-pink);
+        }
+
+        .header p {
+            color: var(--text-dim);
+            font-size: 0.85rem;
+            margin-top: 5px;
+            text-transform: uppercase;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .panel {
+            background: var(--panel-bg);
+            border: 1px solid var(--border);
+            position: relative;
+            box-shadow: inset 0 0 20px rgba(0, 229, 255, 0.02);
+            padding-bottom: 15px;
+        }
+
+        .panel-title {
+            background: rgba(0, 229, 255, 0.08);
+            color: #fff;
+            padding: 10px 15px;
+            font-weight: bold;
+            font-size: 0.95rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .panel-content { padding: 15px; }
+
+        .data-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+            border-bottom: 1px dashed rgba(255,255,255,0.05);
+            padding-bottom: 4px;
+        }
+
+        .data-label { color: var(--text-dim); }
+        .data-val { color: #fff; text-align: right; }
+        
+        .val-highlight { color: var(--vortex-cyan); font-weight: bold; }
+        .val-ok { color: var(--neon-green); }
+
+        .terminal-box {
+            background: #000;
+            border: 1px dashed var(--vortex-magenta);
+            padding: 10px;
+            font-size: 0.8rem;
+            color: var(--vortex-magenta);
+            height: 150px;
+            overflow-y: auto;
+            font-family: monospace;
+        }
+
+        .btn-link {
+            display: block;
+            width: 100%;
+            background: var(--flickr-pink);
+            color: #fff;
+            border: none;
+            padding: 12px;
+            text-align: center;
+            margin-top: 20px;
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: bold;
+            text-decoration: none;
+            text-transform: uppercase;
+        }
+
+        .btn-link:hover {
+            filter: brightness(1.2);
+            box-shadow: 0 0 15px var(--flickr-pink);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>VORTEX // FLICKR ASSET PARSER</h1>
+        <p>RECON UNIT 05 // TARGET: RENSE POSTHUMUS</p>
+    </div>
+
+    <div class="dashboard-grid">
+
+        <div class="panel">
+            <div class="panel-title" style="border-left: 4px solid var(--vortex-cyan);">
+                <span>[01] IDENTITY MAPPING</span>
+            </div>
+            <div class="panel-content">
+                <div class="data-row"><span class="data-label">User Alias:</span> <span class="data-val val-highlight">renseposthumus</span></div>
+                <div class="data-row"><span class="data-label">Focal Asset ID:</span> <span class="data-val">55186127137</span></div>
+                <div class="data-row"><span class="data-label">Account Type:</span> <span class="data-val">Personal / Photographer</span></div>
+                <div class="data-row"><span class="data-label">Platform:</span> <span class="data-val">Flickr</span></div>
+                <div class="data-row"><span class="data-label">Status:</span> <span class="data-val val-ok">PUBLIC_EXPOSED</span></div>
+            </div>
+        </div>
+
+        <div class="panel">
+            <div class="panel-title" style="border-left: 4px solid var(--vortex-magenta);">
+                <span>[02] RECONNAISSANCE LOG</span>
+            </div>
+            <div class="panel-content">
+                <div class="terminal-box" id="terminal">
+> Initializing Flickr Recon Engine...
+> Mapping Target: renseposthumus
+> Accessing asset 55186127137...
+> Scanning for EXIF metadata...
+> Checking for geolocation headers...
+> Cross-referencing with VORTEX threat matrix...
+> [!] Potential match with local node infrastructure detected.
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div style="max-width: 1200px; margin: 20px auto;">
+        <a href="https://www.flickr.com/photos/renseposthumus/55186127137" target="_blank" class="btn-link">
+            [>] OPEN SOURCE ASSETS IN SECURE TAB
+        </a>
+    </div>
+
+</body>
+</html>

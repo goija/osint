@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VORTEX v72 // POSTMAN OSINT EXTRACTOR</title>
+    <style>
+        :root {
+            --vortex-cyan: #00e5ff;
+            --vortex-magenta: #ff00ff;
+            --vortex-yellow: #ffea00;
+            --vortex-bg: #050608;
+            --panel-bg: #0a0c11;
+            --border: rgba(0, 229, 255, 0.25);
+            --text-dim: #6c7a89;
+            --neon-green: #00ff66;
+            --alert-red: #ff0033;
+            --postman-orange: #ff6c37;
+        }
+
+        body {
+            background-color: var(--vortex-bg);
+            color: var(--vortex-cyan);
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            border-bottom: 2px solid var(--postman-orange);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 1.8rem;
+            color: #fff;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px var(--postman-orange);
+        }
+
+        .header p {
+            color: var(--text-dim);
+            font-size: 0.85rem;
+            margin-top: 5px;
+            text-transform: uppercase;
+        }
+
+        .success-banner {
+            background-color: rgba(255, 108, 55, 0.1);
+            border: 1px solid var(--postman-orange);
+            color: var(--postman-orange);
+            padding: 10px;
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 20px;
+            box-shadow: 0 0 10px rgba(255, 108, 55, 0.2);
+            text-transform: uppercase;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .panel {
+            background: var(--panel-bg);
+            border: 1px solid var(--border);
+            position: relative;
+            box-shadow: inset 0 0 20px rgba(0, 229, 255, 0.02);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .panel::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 3px;
+            background: linear-gradient(90deg, var(--vortex-cyan), transparent);
+        }
+
+        .panel-title {
+            background: rgba(0, 229, 255, 0.08);
+            color: #fff;
+            padding: 10px 15px;
+            font-weight: bold;
+            font-size: 0.95rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .panel-content {
+            padding: 15px;
+            flex-grow: 1;
+        }
+
+        .data-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+            border-bottom: 1px dashed rgba(255,255,255,0.05);
+            padding-bottom: 4px;
+        }
+
+        .data-label { color: var(--text-dim); }
+        .data-val { color: #fff; text-align: right; word-break: break-all; max-width: 60%; }
+        
+        .val-highlight { color: var(--vortex-yellow); font-weight: bold; }
+        .val-true { color: var(--neon-green); }
+
+        .terminal-box {
+            background: #000;
+            border: 1px dashed var(--vortex-magenta);
+            padding: 10px;
+            font-size: 0.8rem;
+            color: var(--vortex-magenta);
+            height: 250px;
+            overflow-y: auto;
+            font-family: monospace;
+            line-height: 1.4;
+            white-space: pre-wrap;
+        }
+
+        .btn-action {
+            display: block;
+            width: 100%;
+            background: transparent;
+            border: 1px solid var(--postman-orange);
+            color: var(--postman-orange);
+            padding: 12px;
+            text-align: center;
+            margin-top: 20px;
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: bold;
+            transition: 0.3s;
+            letter-spacing: 1px;
+        }
+
+        .btn-action:hover {
+            background: rgba(255, 108, 55, 0.1);
+            box-shadow: 0 0 15px rgba(255, 108, 55, 0.4);
+            color: #fff;
+        }
+
+        /* Specifieke panel kleuren */
+        .panel-target .panel-title { border-left: 4px solid var(--vortex-cyan); }
+        .panel-target::before { background: linear-gradient(90deg, var(--vortex-cyan), transparent); }
+        
+        .panel-env .panel-title { border-left: 4px solid var(--vortex-magenta); background: rgba(255, 0, 255, 0.08); border-bottom-color: rgba(255, 0, 255, 0.25); }
+        .panel-env::before { background: linear-gradient(90deg, var(--vortex-magenta), transparent); }
+
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>VORTEX // POSTMAN OSINT EXTRACTOR</h1>
+        <p>DOELWIT: Postman API Collection // STATUS: DATA DECODED</p>
+    </div>
+
+    <div class="success-banner">
+        [+] PAYLOAD ONDERSCHEPT: Base64 Environment Config succesvol gekraakt.
+    </div>
+
+    <div class="dashboard-grid">
+
+        <div class="panel panel-target">
+            <div class="panel-title">
+                <span>[01] COLLECTION METADATA</span>
+                <span style="color: var(--vortex-cyan);">EXTRACTED</span>
+            </div>
+            <div class="panel-content">
+                <div class="data-row"><span class="data-label">Action:</span> <span class="data-val">collection/fork</span></div>
+                <div class="data-row"><span class="data-label">Visibility:</span> <span class="data-val val-true">public</span></div>
+                <div class="data-row"><span class="data-label">Collection ID:</span> <span class="data-val val-highlight" style="font-size: 0.7rem;">4189552-b01fcb23-00a7-407f-85dd-db925532e503</span></div>
+                <div class="data-row"><span class="data-label">Workspace ID:</span> <span class="data-val val-highlight" style="font-size: 0.7rem;">264c2b31-5811-4149-828a-491cadfc0d76</span></div>
+            </div>
+        </div>
+
+        <div class="panel panel-env">
+            <div class="panel-title">
+                <span>[02] BASE64 DECODED ENVIRONMENT</span>
+                <span style="color: var(--vortex-magenta);">CLEARTEXT</span>
+            </div>
+            <div class="panel-content" style="padding: 10px;">
+                <div class="terminal-box" id="terminal">
+> Raw param intercepted:
+env%5BProduction%5D=W3sia...
+
+> URL Decoding...
+env[Production]=W3sia2V5IjoidG9rZW4iLC...
+
+> Base64 Decoding Environment Variables...
+> MATCH FOUND!
+
+[
+  { "key": "token", "value": "", "type": "default", "enabled": true },
+  { "key": "collectionName", "value": "", "type": "default", "enabled": true },
+  { "key": "collectionSchemaUrl", "value": "", "type": "default", "enabled": true },
+  { "key": "accessKey", "value": "", "type": "default", "enabled": true },
+  { "key": "workspaceId", "value": "", "type": "default", "enabled": true },
+  { "key": "collectionId", "value": "", "type": "default", "enabled": true }
+]
+
+> [!] SYSTEM WARNING: API structuur onthult 'token' en 'accessKey' vereisten. 
+> Mogelijk aanvalsvector voor verdere API-enumeratie.
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div style="max-width: 1200px; margin: 0 auto;">
+        <button class="btn-action" onclick="window.open('https://run.pstmn.io/button.js', '_blank')">
+            [>] ONDERZOEK POSTMAN RUNNER SCRIPT
+        </button>
+    </div>
+
+</body>
+</html>

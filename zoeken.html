@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OSINT Target Matrix - Dashboard</title>
+    <style>
+        :root {
+            --bg-main: #0b0f19;
+            --bg-card: #151d30;
+            --border: #22314d;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent-google: #3b82f6;
+            --accent-nitter: #ff6600;
+            --accent-mastodon: #6366f1;
+            --accent-linkedin: #0a66c2;
+        }
+
+        body {
+            font-family: 'Courier New', Courier, monospace, -apple-system, sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            margin: 0;
+            padding: 30px 15px;
+        }
+
+        .dashboard {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            border-bottom: 2px dashed var(--border);
+            padding-bottom: 20px;
+            margin-bottom: 35px;
+        }
+
+        header h1 {
+            font-size: 26px;
+            letter-spacing: 2px;
+            color: #10b981;
+            margin: 0 0 5px 0;
+        }
+
+        header p {
+            color: var(--text-muted);
+            font-size: 13px;
+            margin: 0;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 25px;
+        }
+
+        @media (min-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .target-block {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.4);
+        }
+
+        .target-block h2 {
+            font-size: 20px;
+            margin-top: 0;
+            margin-bottom: 15px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 8px;
+        }
+
+        .category-title {
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 15px 0 8px 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .category-title::before {
+            content: "> ";
+            margin-right: 5px;
+        }
+
+        .google-color { color: var(--accent-google); }
+        .nitter-color { color: var(--accent-nitter); }
+        .mastodon-color { color: var(--accent-mastodon); }
+        .linkedin-color { color: var(--accent-linkedin); }
+
+        .link-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .link-item {
+            margin-bottom: 10px;
+        }
+
+        .search-btn {
+            display: block;
+            padding: 10px 12px;
+            background-color: #0b0f19;
+            text-decoration: none;
+            border: 1px solid var(--border);
+            border-radius: 5px;
+            font-size: 13px;
+            transition: all 0.2s ease;
+        }
+
+        .search-btn .label {
+            display: block;
+            font-weight: bold;
+            color: var(--text-main);
+            margin-bottom: 3px;
+        }
+
+        .search-btn code {
+            font-size: 11px;
+            color: var(--text-muted);
+            word-break: break-all;
+        }
+
+        /* Hover effecten per platform */
+        .google-btn:hover { border-color: var(--accent-google); background-color: rgba(59, 130, 246, 0.1); }
+        .nitter-btn:hover { border-color: var(--accent-nitter); background-color: rgba(255, 102, 0, 0.1); }
+        .mastodon-btn:hover { border-color: var(--accent-mastodon); background-color: rgba(99, 102, 241, 0.1); }
+        .linkedin-btn:hover { border-color: var(--accent-linkedin); background-color: rgba(10, 102, 194, 0.1); }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 11px;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border);
+            padding-top: 15px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="dashboard">
+    <header>
+        <h1>[OSINT TARGET INVESTIGATION MATRIX]</h1>
+        <p>Gecentraliseerd dashboard voor cross-platform profielanalyse en dorking</p>
+    </header>
+
+    <div class="grid">
+        
+        <div class="target-block">
+            <h2>Target: Fleur van Leusden</h2>
+            
+            <div class="category-title google-color">Google Dorks (Web Intelligence)</div>
+            <ul class="link-list">
+                <li class="link-item">
+                    <a class="search-link search-btn google-btn" href="https://www.google.com/search?q=%22Fleur+van+Leusden%22" target="_blank">
+                        <span class="label">Exacte Naamzoeken (Algemeen)</span>
+                        <code>"Fleur van Leusden"</code>
+                    </a>
+                </li>
+                <li class="link-item">
+                    <a class="search-link search-btn google-btn" href="https://www.google.com/search?q=%22Fleur+van+Leusden%22+site%3Afacebook.com" target="_blank">
+                        <span class="label">Facebook Indexering</span>
+                        <code>"Fleur van Leusden" site:facebook.com</code>
+                    </a>
+                </li>
+                <li class="link-item">
+                    <a class="search-link search-btn google-btn" href="https://www.google.com/search?q=%22Fleur+van+Leusden%22+site%3Amedium.com" target="_blank">
+                        <span class="label">Medium Artikelen & Blogs</span>
+                        <code>"Fleur van Leusden" site:medium.com</code>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="category-title linkedin-color">LinkedIn (Professional Intelligence)</div>
+            <ul class="link-list">
+                <li class="link-item">
+                    <a class="search-link search-btn linkedin-btn" href="https://www.google.com/search?q=%22Fleur+van+Leusden%22+site%3Alinkedin.com%2Fposts" target="_blank">
+                        <span class="label">LinkedIn Bijdragen & Posts</span>
+                        <code>"Fleur van Leusden" site:linkedin.com/posts</code>
+                    </a>
+                </li>
+                <li class="link-item">
+                    <a class="search-link search-btn linkedin-btn" href="https://www.google.com/search?q=%22Fleur+van+Leusden%22+site%3Alinkedin.com%2Fin" target="_blank">
+                        <span class="label">Directe Profielen via Google</span>
+                        <code>"Fleur van Leusden" site:linkedin.com/in</code>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="category-title nitter-color">Nitter (Microblog Vermeldingen)</div>
+            <ul class="link-list">
+                <li class="link-item">
+                    <a class="search-link search-btn nitter-btn" href="https://nitter.net/search?f=tweets&q=%22Fleur+van+Leusden%22" target="_blank">
+                        <span class="label">Vermeldingen op X</span>
+                        <code>"Fleur van Leusden"</code>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="category-title mastodon-color">Mastodon (Decentralized Web)</div>
+            <ul class="link-list">
+                <li class="link-item">
+                    <a class="search-link search-btn mastodon-btn" href="https://www.google.com/search?q=%22Fleur+van+Leusden%22+site%3Amastodon.social+OR+site%3Amas.to" target="_blank">
+                        <span class="label">Zoek op Grote Instanties via Google</span>
+                        <code>"Fleur van Leusden" site:mastodon.social OR site:mas.to</code>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+
+        <div class="target-block">
+            <h2>Target: @queen_fennec</h2>
+            
+            <div class="category-title nitter-color">Nitter.net (X Analytics)</div>
+            <ul class="link-list">
+                <li class="link-item">
+                    <a class="search-link search-btn nitter-btn" href="https://nitter.net/search?f=tweets&q=from%3Aqueen_fennec" target="_blank">
+                        <span class="label">Alle Posts van Account</span>
+                        <code>from:queen_fennec</code>
+                    </a>
+                </li>
+                <li class="search-item">
+                    <a class="search-link search-btn nitter-btn" href="https://nitter.net/search?f=tweets&q=from%3Aqueen_fennec%20filter%3Areplies" target="_blank">
+                        <span class="label">Geposte Antwoorden (Replies)</span>
+                        <code>from:queen_fennec filter:replies</code>
+                    </a>
+                </li>
+                <li class="search-item">
+                    <a class="search-link search-btn nitter-btn" href="https://nitter.net/search?f=tweets&q=from%3Aqueen_fennec%20-filter%3Areplies" target="_blank">
+                        <span class="label">Alleen Originele Posts</span>
+                        <code>from:queen_fennec -filter:replies</code>
+                    </a>
+                </li>
+                <li class="search-item">
+                    <a class="search-link search-btn nitter-btn" href="https://nitter.net/search?f=tweets&q=from%3Aqueen_fennec%20-filter%3Areplies%20since%3A2025-01-01%20until%3A2025-12-31" target="_blank">
+                        <span class="label">Originele Posts [Tijdlijn 2025]</span>
+                        <code>from:queen_fennec -filter:replies since:2025-01-01...</code>
+                    </a>
+                </li>
+                <li class="search-item">
+                    <a class="search-link search-btn nitter-btn" href="https://nitter.net/search?f=tweets&q=%40queen_fennec" target="_blank">
+                        <span class="label">Inkomende Mentions (Wie praat met haar?)</span>
+                        <code>@queen_fennec</code>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="category-title mastodon-color">Mastodon (Gefedereerde Zoekopdrachten)</div>
+            <ul class="link-list">
+                <li class="link-item">
+                    <a class="search-link search-btn mastodon-btn" href="https://www.google.com/search?q=%22queen_fennec%22+site%3Amastodon.social+OR+site%3Amas.to" target="_blank">
+                        <span class="label">Gebruikersnaam-match op Mastodon</span>
+                        <code>"queen_fennec" (Global Instance Search)</code>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="category-title google-color">Google Dorks (Naam-koppelingen)</div>
+            <ul class="link-list">
+                <li class="link-item">
+                    <a class="search-link search-btn google-btn" href="https://www.google.com/search?q=%22queen_fennec%22+%22Fleur+van+Leusden%22" target="_blank">
+                        <span class="label">Directe Correlatie Identiteitstoets</span>
+                        <code>"queen_fennec" "Fleur van Leusden"</code>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>Waarschuwing: nitter.net kan instabiel zijn. Vervang de URL in de code door een alternatieve instantie (bijv. nitter.privacydev.net) indien nodig.</p>
+    </footer>
+</div>
+
+</body>
+</html>

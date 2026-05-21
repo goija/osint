@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VORTEX v72 // SILL RECON</title>
+    <style>
+        :root {
+            --vortex-cyan: #00e5ff;
+            --vortex-magenta: #ff00ff;
+            --vortex-yellow: #ffea00;
+            --vortex-bg: #050608;
+            --panel-bg: #0a0c11;
+            --border: rgba(0, 229, 255, 0.25);
+            --text-dim: #6c7a89;
+            --neon-green: #00ff66;
+            --alert-red: #ff0033;
+        }
+
+        body {
+            background-color: var(--vortex-bg);
+            color: var(--vortex-cyan);
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            border-bottom: 2px solid var(--vortex-cyan);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 1.8rem;
+            color: #fff;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px var(--vortex-cyan);
+        }
+
+        .header p {
+            color: var(--text-dim);
+            font-size: 0.85rem;
+            margin-top: 5px;
+            text-transform: uppercase;
+        }
+
+        .success-banner {
+            background-color: rgba(0, 255, 102, 0.1);
+            border: 1px solid var(--neon-green);
+            color: var(--neon-green);
+            padding: 10px;
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 20px;
+            box-shadow: 0 0 10px rgba(0, 255, 102, 0.2);
+            text-transform: uppercase;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .panel {
+            background: var(--panel-bg);
+            border: 1px solid var(--border);
+            position: relative;
+            box-shadow: inset 0 0 20px rgba(0, 229, 255, 0.02);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .panel::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 3px;
+            background: linear-gradient(90deg, var(--vortex-cyan), transparent);
+        }
+
+        .panel-title {
+            background: rgba(0, 229, 255, 0.08);
+            color: #fff;
+            padding: 10px 15px;
+            font-weight: bold;
+            font-size: 0.95rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .panel-content {
+            padding: 15px;
+            flex-grow: 1;
+        }
+
+        .data-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+            border-bottom: 1px dashed rgba(255,255,255,0.05);
+            padding-bottom: 4px;
+        }
+
+        .data-label { color: var(--text-dim); }
+        .data-val { color: #fff; text-align: right; word-break: break-all; max-width: 60%; }
+        
+        .val-highlight { color: var(--vortex-cyan); font-weight: bold; }
+        .val-true { color: var(--neon-green); }
+
+        .terminal-box {
+            background: #000;
+            border: 1px dashed var(--vortex-yellow);
+            padding: 10px;
+            font-size: 0.8rem;
+            color: var(--vortex-yellow);
+            height: 150px;
+            overflow-y: auto;
+            font-family: monospace;
+            line-height: 1.4;
+        }
+
+        .btn-action {
+            display: block;
+            width: 100%;
+            background: transparent;
+            border: 1px solid var(--vortex-cyan);
+            color: var(--vortex-cyan);
+            padding: 12px;
+            text-align: center;
+            margin-top: 20px;
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: bold;
+            transition: 0.3s;
+            letter-spacing: 1px;
+        }
+
+        .btn-action:hover {
+            background: rgba(0, 229, 255, 0.1);
+            box-shadow: 0 0 15px rgba(0, 229, 255, 0.4);
+            color: #fff;
+        }
+
+        /* Specifieke panel kleuren */
+        .panel-recon .panel-title { border-left: 4px solid var(--vortex-cyan); }
+        .panel-stack .panel-title { border-left: 4px solid var(--vortex-magenta); background: rgba(255, 0, 255, 0.08); border-bottom-color: rgba(255, 0, 255, 0.25); }
+        .panel-stack::before { background: linear-gradient(90deg, var(--vortex-magenta), transparent); }
+        .panel-network .panel-title { border-left: 4px solid var(--vortex-yellow); background: rgba(255, 234, 0, 0.08); border-bottom-color: rgba(255, 234, 0, 0.25); }
+        .panel-network::before { background: linear-gradient(90deg, var(--vortex-yellow), transparent); }
+
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>VORTEX // SILL RECON</h1>
+        <p>DOELWIT: https://sill.eu // STATUS: RECON VOLTOOID</p>
+    </div>
+
+    <div class="success-banner">
+        [+] DATA GEÏNJECTEERD: Sill EU profiel en tech-stack succesvol geëxtraheerd.
+    </div>
+
+    <div class="dashboard-grid">
+
+        <div class="panel panel-recon">
+            <div class="panel-title">
+                <span>[01] SILL RECON DATA</span>
+                <span style="color: var(--vortex-cyan);">EXTRACTED</span>
+            </div>
+            <div class="panel-content">
+                <div class="data-row"><span class="data-label">URL:</span> <span class="data-val val-highlight">https://sill.eu</span></div>
+                <div class="data-row"><span class="data-label">IP Adres:</span> <span class="data-val">185.136.92.16</span></div>
+                <div class="data-row"><span class="data-label">Domein status:</span> <span class="data-val val-true">Actief / Geregistreerd</span></div>
+                <div class="data-row"><span class="data-label">Web Server:</span> <span class="data-val">Apache</span></div>
+                <div class="data-row"><span class="data-label">CMS:</span> <span class="data-val">WordPress</span></div>
+            </div>
+        </div>
+
+        <div class="panel panel-stack">
+            <div class="panel-title">
+                <span>[02] TECHNOLOGY STACK</span>
+                <span style="color: var(--vortex-magenta);">MAPPED</span>
+            </div>
+            <div class="panel-content">
+                <div class="data-row"><span class="data-label">Frontend:</span> <span class="data-val">HTML5, CSS3, JavaScript</span></div>
+                <div class="data-row"><span class="data-label">Backend:</span> <span class="data-val">PHP</span></div>
+                <div class="data-row"><span class="data-label">Database:</span> <span class="data-val">MySQL</span></div>
+                <div class="data-row"><span class="data-label">Security:</span> <span class="data-val val-true">SSL/TLS (Let's Encrypt)</span></div>
+            </div>
+        </div>
+
+        <div class="panel panel-network">
+            <div class="panel-title">
+                <span>[03] NETWORK TRACE</span>
+                <span style="color: var(--vortex-yellow);">LOGGED</span>
+            </div>
+            <div class="panel-content" style="padding: 10px;">
+                <div class="terminal-box" id="terminal"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <div style="max-width: 1200px; margin: 0 auto;">
+        <button class="btn-action" onclick="alert('[SYS] Initializing new target acquisition protocol...')">
+            [+] START NIEUWE SCAN
+        </button>
+    </div>
+
+    <script>
+        const terminal = document.getElementById('terminal');
+        const logData = [
+            "> VORTEX Recon Daemon started...",
+            "> Target URL: https://sill.eu",
+            "> Resolving IP address... 185.136.92.16",
+            "> Scanning open ports... 80 (HTTP), 443 (HTTPS)",
+            "> Identifying technology stack... WordPress detected.",
+            "> VORTEX Recon Complete."
+        ];
+        
+        let delay = 600; // Snelheid van de terminal animatie
+        logData.forEach((log, index) => {
+            setTimeout(() => {
+                terminal.innerHTML += `${log}<br>`;
+                terminal.scrollTop = terminal.scrollHeight;
+            }, delay * (index + 1));
+        });
+    </script>
+</body>
+</html>

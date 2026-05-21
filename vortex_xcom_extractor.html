@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VORTEX v72 // X.COM PAYLOAD EXTRACTOR</title>
+    <style>
+        :root {
+            --vortex-cyan: #00e5ff;
+            --vortex-magenta: #ff00ff;
+            --vortex-yellow: #ffea00;
+            --vortex-bg: #050608;
+            --panel-bg: #0a0c11;
+            --border: rgba(0, 229, 255, 0.25);
+            --text-dim: #6c7a89;
+        }
+
+        body {
+            background-color: var(--vortex-bg);
+            color: var(--vortex-cyan);
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            border-bottom: 2px solid var(--vortex-magenta);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 1.8rem;
+            color: #fff;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px var(--vortex-magenta);
+        }
+
+        .header p {
+            color: var(--text-dim);
+            font-size: 0.85rem;
+            margin-top: 5px;
+            text-transform: uppercase;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .panel {
+            background: var(--panel-bg);
+            border: 1px solid var(--border);
+            position: relative;
+            box-shadow: inset 0 0 20px rgba(0, 229, 255, 0.02);
+        }
+
+        .panel::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 3px;
+            background: linear-gradient(90deg, var(--vortex-cyan), transparent);
+        }
+
+        .panel-title {
+            background: rgba(0, 229, 255, 0.08);
+            color: #fff;
+            padding: 10px 15px;
+            font-weight: bold;
+            font-size: 0.95rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .panel-content {
+            padding: 15px;
+        }
+
+        .data-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+            border-bottom: 1px dashed rgba(255,255,255,0.05);
+            padding-bottom: 4px;
+        }
+
+        .data-label { color: var(--text-dim); }
+        .data-val { color: #fff; text-align: right; word-break: break-all; max-width: 60%; }
+        
+        .val-true { color: #00ff66; font-weight: bold; }
+        .val-false { color: #ff3333; }
+        .val-highlight { color: var(--vortex-yellow); font-weight: bold; }
+
+        /* Specifieke panel kleuren */
+        .panel-ai .panel-title { border-left: 4px solid var(--vortex-magenta); }
+        .panel-finance .panel-title { border-left: 4px solid var(--vortex-yellow); }
+        .panel-identity .panel-title { border-left: 4px solid var(--vortex-cyan); }
+        .panel-system .panel-title { border-left: 4px solid #ff3333; }
+
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>VORTEX // STATE FRAGMENT DECODER</h1>
+        <p>DOELWIT GEÏDENTIFICEERD // DEEP STATE EXTRACTIE VOLTOOID // DATA-DUMP: 1776409559994.log</p>
+    </div>
+
+    <div class="dashboard-grid">
+
+        <div class="panel panel-identity">
+            <div class="panel-title">
+                <span>[01] TARGET IDENTITY (USER_STATE)</span>
+                <span style="color: var(--vortex-cyan);">CONFIRMED</span>
+            </div>
+            <div class="panel-content">
+                <div class="data-row"><span class="data-label">Account Naam:</span> <span class="data-val">G.E.B</span></div>
+                <div class="data-row"><span class="data-label">Screen Name (@):</span> <span class="data-val val-highlight">Wbout1</span></div>
+                <div class="data-row"><span class="data-label">User ID (Snowflake):</span> <span class="data-val">2033886068991528962</span></div>
+                <div class="data-row"><span class="data-label">Aangemaakt op:</span> <span class="data-val">2026-03-17 T12:40:21.000Z</span></div>
+                <div class="data-row"><span class="data-label">Geboortedatum:</span> <span class="data-val">8 Juni 1967 (Zichtbaar: Self)</span></div>
+                <div class="data-row"><span class="data-label">Media Count:</span> <span class="data-val">106 bestanden</span></div>
+                <div class="data-row"><span class="data-label">Locatie (Regio):</span> <span class="data-val">NL (Nederland)</span></div>
+                <div class="data-row"><span class="data-label">Profiel URL:</span> <span class="data-val"><a href="https://pbs.twimg.com/profile_images/2042874931550068736/j2hb8PBU_normal.jpg" target="_blank" style="color:var(--vortex-cyan);">Bekijk Avatar</a></span></div>
+            </div>
+        </div>
+
+        <div class="panel panel-ai">
+            <div class="panel-title">
+                <span>[02] GROK & AI CAPABILITIES (FEATURE_FLAGS)</span>
+                <span style="color: var(--vortex-magenta);">ACTIVE</span>
+            </div>
+            <div class="panel-content">
+                <div class="data-row"><span class="data-label">In-App Grok AI:</span> <span class="data-val val-true">TRUE</span></div>
+                <div class="data-row"><span class="data-label">Grok Voice Mode:</span> <span class="data-val val-true">TRUE</span></div>
+                <div class="data-row"><span class="data-label">Grok Image Editor:</span> <span class="data-val val-true">TRUE</span></div>
+                <div class="data-row"><span class="data-label">Grok Post Analyzer:</span> <span class="data-val val-true">TRUE</span></div>
+                <div class="data-row"><span class="data-label">Grok DeeperSearch:</span> <span class="data-val val-true">TRUE</span></div>
+                <div class="data-row"><span class="data-label">Grok File Upload (Max):</span> <span class="data-val">50MB (Max 15 bestanden)</span></div>
+                <div class="data-row"><span class="data-label">AI Content Generated Indicator:</span> <span class="data-val val-true">TRUE</span></div>
+                <div class="data-row"><span class="data-label">AI Trends Score Treshold:</span> <span class="data-val">0.4</span></div>
+            </div>
+        </div>
+
+        <div class="panel panel-finance">
+            <div class="panel-title">
+                <span>[03] X PAYMENTS & FINANCIALS</span>
+                <span style="color: var(--vortex-yellow);">BETA_RING_ACCESS</span>
+            </div>
+            <div class="panel-content">
+                <div class="data-row"><span class="data-label">X Payments Geautoriseerd:</span> <span class="data-val val-false">FALSE (canAccessPayments)</span></div>
+                <div class="data-row"><span class="data-label">Cash Deposits Ingeschakeld:</span> <span class="data-val val-true">TRUE</span></div>
+                <div class="data-row"><span class="data-label">Cheques Deposits Ingeschakeld:</span> <span class="data-val val-true">TRUE</span></div>
+                <div class="data-row"><span class="data-label">Passkey Onboarding:</span> <span class="data-val val-true">TRUE</span></div>
+                <div class="data-row"><span class="data-label">Stripe / Identity Processor:</span> <span class="data-val">Persona / Stripe</span></div>
+                <div class="data-row"><span class="data-label">Creator Monetization:</span> <span class="data-val val-true">TRUE</span></div>
+                <div class="data-row"><span class="data-label">Ad Revenue Sharing:</span> <span class="data-val val-true">TRUE (Min. Imp: 5)</span></div>
+            </div>
+        </div>
+
+        <div class="panel panel-system">
+            <div class="panel-title">
+                <span>[04] SYSTEM CONFIG & MODERATION</span>
+                <span style="color: #ff3333;">MONITORED</span>
+            </div>
+            <div class="panel-content">
+                <div class="data-row"><span class="data-label">Sessie Type:</span> <span class="data-val">Logged In (SSO: Google)</span></div>
+                <div class="data-row"><span class="data-label">Environment:</span> <span class="data-val">PROD</span></div>
+                <div class="data-row"><span class="data-label">"Freedom of Speech Not Reach" Active:</span> <span class="data-val val-true">TRUE</span></div>
+                <div class="data-row"><span class="data-label">DSA Report Illegal Content URL:</span> <span class="data-val"><a href="https://help.twitter.com/forms/dsa/report" style="color:#ff3333;">Link</a></span></div>
+                <div class="data-row"><span class="data-label">Birdwatch (Community Notes):</span> <span class="data-val val-true">CONSUMER_ACTIVE</span></div>
+                <div class="data-row"><span class="data-label">XChat End-to-End Encryption:</span> <span class="data-val val-false">FALSE (av_chat_encryption)</span></div>
+                <div class="data-row"><span class="data-label">Graduated Access (Shadowban logic):</span> <span class="data-val val-true">BOTMAKER_DECIDER_ENABLED</span></div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>

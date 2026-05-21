@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VORTEX v72 // CLOUD ASSET MANAGER</title>
+    <style>
+        :root {
+            --vortex-cyan: #00e5ff;
+            --vortex-magenta: #ff00ff;
+            --vortex-yellow: #ffea00;
+            --vortex-bg: #050608;
+            --panel-bg: #0a0c11;
+            --border: rgba(0, 229, 255, 0.25);
+            --text-dim: #6c7a89;
+            --neon-green: #00ff66;
+            --filebase-blue: #0091ff;
+        }
+
+        body {
+            background-color: var(--vortex-bg);
+            color: var(--vortex-cyan);
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            border-bottom: 2px solid var(--filebase-blue);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 1.8rem;
+            color: #fff;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px var(--filebase-blue);
+        }
+
+        .access-banner {
+            background: rgba(0, 145, 255, 0.1);
+            border: 1px solid var(--filebase-blue);
+            color: #fff;
+            padding: 12px;
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 20px;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .panel {
+            background: var(--panel-bg);
+            border: 1px solid var(--border);
+            position: relative;
+            box-shadow: inset 0 0 20px rgba(0, 229, 255, 0.02);
+            padding-bottom: 15px;
+        }
+
+        .panel-title {
+            background: rgba(0, 229, 255, 0.08);
+            color: #fff;
+            padding: 10px 15px;
+            font-weight: bold;
+            font-size: 0.95rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .panel-content { padding: 15px; }
+
+        .bucket-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .bucket-item {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid #222;
+            padding: 10px;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: 0.3s;
+        }
+
+        .bucket-item:hover {
+            border-color: var(--vortex-cyan);
+            background: rgba(0, 229, 255, 0.05);
+        }
+
+        .data-label { color: var(--text-dim); font-size: 0.8rem; }
+        .data-val { color: #fff; font-family: monospace; }
+        
+        .status-pill {
+            font-size: 0.7rem;
+            padding: 2px 6px;
+            border-radius: 3px;
+            background: var(--neon-green);
+            color: #000;
+            font-weight: bold;
+        }
+
+        .terminal-box {
+            background: #000;
+            border: 1px dashed var(--vortex-magenta);
+            padding: 10px;
+            font-size: 0.8rem;
+            color: var(--vortex-magenta);
+            height: 200px;
+            overflow-y: auto;
+            font-family: monospace;
+        }
+
+        .btn-link {
+            display: block;
+            width: 100%;
+            background: var(--filebase-blue);
+            color: #fff;
+            border: none;
+            padding: 12px;
+            text-align: center;
+            margin-top: 15px;
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: bold;
+            text-decoration: none;
+            text-transform: uppercase;
+        }
+
+        .btn-link:hover {
+            filter: brightness(1.2);
+            box-shadow: 0 0 15px var(--filebase-blue);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>VORTEX // CLOUD ASSET MANAGER</h1>
+        <p>CONSOLE INTERFACE // FILEBASE S3 BUCKETS</p>
+    </div>
+
+    <div class="access-banner">
+        [+] AUTHENTICATED VIA ONDERSCHEPTE CREDENTIALS: 8BE5C25DC2...
+    </div>
+
+    <div class="dashboard-grid">
+
+        <div class="panel">
+            <div class="panel-title" style="border-left: 4px solid var(--vortex-cyan);">
+                <span>[01] BUCKET INVENTORY (S3)</span>
+            </div>
+            <div class="panel-content">
+                <ul class="bucket-list">
+                    <li class="bucket-item">
+                        <div>
+                            <span class="data-val">vortex-logs-alpha</span><br>
+                            <span class="data-label">Region: Global // Storage: IPFS</span>
+                        </div>
+                        <span class="status-pill">ACTIVE</span>
+                    </li>
+                    <li class="bucket-item">
+                        <div>
+                            <span class="data-val">woo-zeeland-archive</span><br>
+                            <span class="data-label">Region: Global // Storage: IPFS</span>
+                        </div>
+                        <span class="status-pill">LOCKED</span>
+                    </li>
+                    <li class="bucket-item">
+                        <div>
+                            <span class="data-val">recon-assets-55186127137</span><br>
+                            <span class="data-label">Region: Global // Storage: S3</span>
+                        </div>
+                        <span class="status-pill">SYNCING</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="panel">
+            <div class="panel-title" style="border-left: 4px solid var(--vortex-magenta);">
+                <span>[02] CONSOLE TELEMETRY</span>
+            </div>
+            <div class="panel-content">
+                <div class="terminal-box" id="terminal">
+> Initializing Filebase API link...
+> Access Key 8BE5C2... verified.
+> Secret Key ZKwiQ0... verified.
+> Fetching bucket list from s3.filebase.com...
+> Found 3 active containers.
+> Object QmZEYHiiZip6... pinned in 'woo-zeeland-archive'.
+> STANDBY: Awaiting asset injection.
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div style="max-width: 1200px; margin: 20px auto; width: 100%;">
+        <a href="https://console.filebase.com/buckets" target="_blank" class="btn-link">
+            [>] OPEN LIVE FILEBASE CONSOLE
+        </a>
+    </div>
+
+</body>
+</html>

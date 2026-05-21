@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VORTEX v72 // COMMAND RUNNER</title>
+    <style>
+        :root {
+            --vortex-cyan: #00e5ff;
+            --vortex-magenta: #ff00ff;
+            --vortex-bg: #050608;
+            --panel-bg: #0a0c11;
+            --border: rgba(0, 229, 255, 0.25);
+            --text-dim: #6c7a89;
+            --colab-orange: #f9ab00;
+        }
+
+        body {
+            background-color: var(--vortex-bg);
+            color: var(--vortex-cyan);
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            border-bottom: 2px solid var(--colab-orange);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 1.8rem;
+            color: #fff;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px var(--colab-orange);
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .panel {
+            background: var(--panel-bg);
+            border: 1px solid var(--border);
+            position: relative;
+            box-shadow: inset 0 0 20px rgba(0, 229, 255, 0.02);
+            padding-bottom: 15px;
+        }
+
+        .panel-title {
+            background: rgba(249, 171, 0, 0.08);
+            color: #fff;
+            padding: 10px 15px;
+            font-weight: bold;
+            font-size: 0.95rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .panel-content { padding: 15px; }
+
+        .code-window {
+            background: #000;
+            border: 1px solid #333;
+            color: #00ff66;
+            padding: 15px;
+            font-size: 0.8rem;
+            white-space: pre-wrap;
+            height: 300px;
+            overflow-y: auto;
+            border-radius: 5px;
+        }
+
+        .btn-colab {
+            display: block;
+            width: 100%;
+            background: var(--colab-orange);
+            color: #000;
+            border: none;
+            padding: 12px;
+            text-align: center;
+            margin-top: 15px;
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: bold;
+            text-decoration: none;
+            text-transform: uppercase;
+        }
+
+        .btn-colab:hover {
+            background: #fff;
+            box-shadow: 0 0 15px var(--colab-orange);
+        }
+
+        .script-selector {
+            width: 100%;
+            background: #111;
+            color: #fff;
+            border: 1px solid var(--border);
+            padding: 10px;
+            margin-bottom: 15px;
+            font-family: inherit;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>VORTEX // COMMAND RUNNER</h1>
+        <p>CLOUD KERNEL: GOOGLE COLAB // COMPUTE UNIT ACTIVE</p>
+    </div>
+
+    <div class="dashboard-grid">
+
+        <div class="panel">
+            <div class="panel-title" style="border-left: 4px solid var(--vortex-magenta);">
+                <span>[01] DAEMON GENERATOR</span>
+            </div>
+            <div class="panel-content">
+                <label style="font-size: 0.8rem; color: var(--text-dim);">Selecteer Aanvalsvector:</label>
+                <select class="script-selector" id="scriptType" onchange="updateCode()">
+                    <option value="shodan">Shodan Infrastructure Scan</option>
+                    <option value="s3_upload">Filebase S3 Auto-Exfiltrator</option>
+                    <option value="session_keepalive">X.com Session Keep-Alive</option>
+                </select>
+
+                <div style="font-size: 0.8rem; color: #ccc;">
+                    <p>> Target: <code>185.136.92.16</code></p>
+                    <p>> Credentials: <code>VAULT_SYNCED</code></p>
+                </div>
+                
+                <a href="https://colab.research.google.com/" target="_blank" class="btn-colab">
+                    [>] OPEN COLAB WORKSPACE
+                </a>
+            </div>
+        </div>
+
+        <div class="panel">
+            <div class="panel-title" style="border-left: 4px solid var(--vortex-cyan);">
+                <span>[02] PYTHON PAYLOAD (FOR COLAB)</span>
+            </div>
+            <div class="panel-content">
+                <div class="code-window" id="codeOut">
+# VORTEX SHODAN SCANNER
+import requests
+
+SHODAN_API_KEY = "YaLNvFBVpaTrMkW829nATM3xRTvMaVsH"
+target_ip = "185.136.92.16"
+
+print(f"[!] Initializing scan on {target_ip}")
+response = requests.get(f"https://api.shodan.io/shodan/host/{target_ip}?key={SHODAN_API_KEY}")
+print(response.json())
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function updateCode() {
+            const type = document.getElementById('scriptType').value;
+            const codeOut = document.getElementById('codeOut');
+            
+            if(type === 'shodan') {
+                codeOut.innerText = `# VORTEX SHODAN SCANNER\nimport requests\n\nSHODAN_API_KEY = "YaLNvFBVpaTrMkW829nATM3xRTvMaVsH"\ntarget_ip = "185.136.92.16"\n\nprint(f"[!] Initializing scan on {target_ip}")\nresponse = requests.get(f"https://api.shodan.io/shodan/host/{target_ip}?key={SHODAN_API_KEY}")\nprint(response.json())`;
+            } else if(type === 's3_upload') {
+                codeOut.innerText = `# VORTEX S3 EXFILTRATOR\nimport boto3\n\nACCESS_KEY = "8BE5C25DC2BA2710AB82"\nSECRET_KEY = "ZKwiQ0akDqHrHnp7CDvnnOVpzE7YsK8CQVOrm0zX"\n\ns3 = boto3.client('s3', endpoint_url='https://s3.filebase.com', \n                  aws_access_key_id=ACCESS_KEY, \n                  aws_secret_access_key=SECRET_KEY)\n\nprint("[+] Connection to Filebase established.")`;
+            } else if(type === 'session_keepalive') {
+                codeOut.innerText = `# VORTEX SESSION KEEP-ALIVE\nimport requests\n\nCOOKIES = {\n    'auth_token': '3edae275d2abf1cd6dee918cba71099bd66e50a1',\n    'ct0': 'f5968fd90f4595e4cd17fb190a842da01c3997878cc8b7999efd4bb070105af2f75344027b5338fcd77fdd60e9ec709fa98453fa6db936bbacf2b872dce04fb09755ef98a69ab31bc75a2989a4a811e3'\n}\n\nprint("[*] Polling X.com badge_count...")`;
+            }
+        }
+    </script>
+</body>
+</html>

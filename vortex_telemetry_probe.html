@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VORTEX v72 // TELEMETRY & API PROBE</title>
+    <style>
+        :root {
+            --vortex-cyan: #00e5ff;
+            --vortex-magenta: #ff00ff;
+            --vortex-yellow: #ffea00;
+            --vortex-bg: #050608;
+            --panel-bg: #0a0c11;
+            --border: rgba(0, 229, 255, 0.25);
+            --text-dim: #6c7a89;
+            --neon-green: #00ff66;
+            --alert-red: #ff0033;
+            --postman-orange: #ff6c37;
+        }
+
+        body {
+            background-color: var(--vortex-bg);
+            color: var(--vortex-cyan);
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            border-bottom: 2px solid var(--vortex-cyan);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 1.8rem;
+            color: #fff;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px var(--vortex-cyan);
+        }
+
+        .header p {
+            color: var(--text-dim);
+            font-size: 0.85rem;
+            margin-top: 5px;
+            text-transform: uppercase;
+        }
+
+        .success-banner {
+            background-color: rgba(0, 255, 102, 0.1);
+            border: 1px solid var(--neon-green);
+            color: var(--neon-green);
+            padding: 10px;
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 20px;
+            box-shadow: 0 0 10px rgba(0, 255, 102, 0.2);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .panel {
+            background: var(--panel-bg);
+            border: 1px solid var(--border);
+            position: relative;
+            box-shadow: inset 0 0 20px rgba(0, 229, 255, 0.02);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .panel::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 3px;
+            background: linear-gradient(90deg, var(--vortex-cyan), transparent);
+        }
+
+        .panel-title {
+            background: rgba(0, 229, 255, 0.08);
+            color: #fff;
+            padding: 10px 15px;
+            font-weight: bold;
+            font-size: 0.95rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .panel-content {
+            padding: 15px;
+            flex-grow: 1;
+        }
+
+        .data-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+            border-bottom: 1px dashed rgba(255,255,255,0.05);
+            padding-bottom: 4px;
+        }
+
+        .data-label { color: var(--text-dim); }
+        .data-val { color: #fff; text-align: right; word-break: break-all; max-width: 60%; font-family: monospace; }
+        
+        .val-highlight { color: var(--vortex-yellow); font-weight: bold; }
+        .val-true { color: var(--neon-green); }
+        .val-critical { color: var(--alert-red); font-weight: bold; }
+
+        .terminal-box {
+            background: #000;
+            border: 1px dashed var(--neon-green);
+            padding: 10px;
+            font-size: 0.8rem;
+            color: var(--neon-green);
+            height: 120px;
+            overflow-y: auto;
+            margin-top: 15px;
+            font-family: monospace;
+            line-height: 1.4;
+        }
+
+        .progress-bar-container {
+            width: 100%;
+            background-color: #222;
+            height: 10px;
+            border-radius: 5px;
+            margin-top: 5px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background-color: var(--vortex-cyan);
+            width: 36.6%; /* Berekend uit 0.36611 */
+        }
+
+        /* Specifieke panel kleuren */
+        .panel-telemetry .panel-title { border-left: 4px solid var(--vortex-cyan); }
+        .panel-telemetry::before { background: linear-gradient(90deg, var(--vortex-cyan), transparent); }
+        
+        .panel-api .panel-title { border-left: 4px solid var(--postman-orange); background: rgba(255, 108, 55, 0.08); border-bottom-color: rgba(255, 108, 55, 0.25); }
+        .panel-api::before { background: linear-gradient(90deg, var(--postman-orange), transparent); }
+
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>VORTEX // TELEMETRY & API PROBE</h1>
+        <p>RAW PAYLOAD COMBINATION // SERVER STATUS & API CONFIG DETECTED</p>
+    </div>
+
+    <div class="success-banner">
+        [+] SYSTEEM DATA & API STRUCTUUR SUCCESVOL GEÏNDEXEERD
+    </div>
+
+    <div class="dashboard-grid">
+
+        <div class="panel panel-telemetry">
+            <div class="panel-title">
+                <span>[01] SERVER HEALTH / TELEMETRY</span>
+                <span class="val-true">LIVE</span>
+            </div>
+            <div class="panel-content">
+                <div class="data-row"><span class="data-label">Systeem Versie:</span> <span class="data-val">3.18.7</span></div>
+                <div class="data-row"><span class="data-label">Uptime (Seconden):</span> <span class="data-val">13950522.31</span></div>
+                <div class="data-row"><span class="data-label">Uptime (Dagen):</span> <span class="data-val val-highlight">~161.4 Dagen</span></div>
+                
+                <div style="margin-top: 15px;">
+                    <div class="data-row" style="border: none; padding: 0; margin: 0;">
+                        <span class="data-label">Geheugenverbruik:</span> 
+                        <span class="data-val">36.61%</span>
+                    </div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar"></div>
+                    </div>
+                </div>
+
+                <div class="data-row" style="margin-top: 15px;"><span class="data-label">CPU Load (1m, 5m, 15m):</span> <span class="data-val val-critical">3.73 | 3.70 | 3.71</span></div>
+                <p style="font-size: 0.75rem; color: #aaa; margin-bottom: 0;">* Consistente load rond 3.7 wijst op een multi-core server die actief processen afhandelt zonder piek-uitschieters.</p>
+            </div>
+        </div>
+
+        <div class="panel panel-api">
+            <div class="panel-title">
+                <span>[02] API COLLECTION CONFIG (POSTMAN)</span>
+                <span style="color: var(--postman-orange);">DECODED</span>
+            </div>
+            <div class="panel-content">
+                <div class="data-row"><span class="data-label">Workspace ID:</span> <span class="data-val">264c2b31-5811-4149-828a-491cadfc0d76</span></div>
+                <div class="data-row"><span class="data-label">Collection ID:</span> <span class="data-val">4189552-b01fcb23-00a7-407f-85dd-db925532e503</span></div>
+                <div class="data-row"><span class="data-label">Required Auth 1:</span> <span class="data-val val-highlight">token</span></div>
+                <div class="data-row"><span class="data-label">Required Auth 2:</span> <span class="data-val val-highlight">accessKey</span></div>
+                
+                <div class="terminal-box" id="terminal">
+                    > System health endpoint exposed.<br>
+                    > Parsing Node/Server statistics... OK.<br>
+                    > Intercepting Postman 'Run' button parameters...<br>
+                    > Decoding Base64 environment variables...<br>
+                    > Target API requires 'token' and 'accessKey'.<br>
+                    > Target server has not been rebooted in 161 days.<br>
+                    > VORTEX Probe entering standby mode.
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>

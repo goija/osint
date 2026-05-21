@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VORTEX v26.5 // MAIN TERMINAL</title>
+    <style>
+        :root {
+            --vortex-cyan: #00e5ff;
+            --vortex-magenta: #ff00ff;
+            --vortex-bg: #050505;
+            --vortex-border: rgba(0, 229, 255, 0.3);
+            --vortex-success: #0f0;
+            --card-bg: rgba(0, 0, 0, 0.85);
+        }
+
+        body {
+            background-color: var(--vortex-bg);
+            background-image: radial-gradient(circle at 50% 50%, #0a0a0a 0%, #000 100%);
+            color: var(--vortex-cyan);
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .dashboard {
+            width: 800px;
+            background: var(--card-bg);
+            border: 2px solid var(--vortex-cyan);
+            box-shadow: 0 0 30px rgba(0, 229, 255, 0.1);
+            padding: 30px;
+            position: relative;
+        }
+
+        /* Glitch effect header */
+        .header {
+            text-align: center;
+            border-bottom: 1px solid var(--vortex-magenta);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 2rem;
+            color: #fff;
+            text-shadow: 2px 0 var(--vortex-magenta), -2px 0 var(--vortex-cyan);
+            letter-spacing: 2px;
+        }
+
+        .header p {
+            color: var(--vortex-magenta);
+            font-size: 0.9rem;
+            margin-top: 10px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .module-card {
+            border: 1px solid var(--vortex-border);
+            padding: 20px;
+            text-decoration: none;
+            color: var(--vortex-cyan);
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+            background: rgba(0, 229, 255, 0.03);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .module-card:hover {
+            border-color: var(--vortex-cyan);
+            background: rgba(0, 229, 255, 0.1);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 229, 255, 0.2);
+        }
+
+        .module-card::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--vortex-magenta);
+            transform: scaleY(0);
+            transition: transform 0.3s ease;
+            transform-origin: bottom;
+        }
+
+        .module-card:hover::before {
+            transform: scaleY(1);
+        }
+
+        .module-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .module-desc {
+            font-size: 0.8rem;
+            color: #888;
+            line-height: 1.4;
+        }
+
+        .status {
+            margin-top: 15px;
+            font-size: 0.75rem;
+            color: var(--vortex-success);
+            text-transform: uppercase;
+        }
+
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 0.7rem;
+            color: #555;
+            border-top: 1px dashed var(--vortex-border);
+            padding-top: 15px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="dashboard">
+        <div class="header">
+            <h1>VORTEX OMNI-BRIDGE</h1>
+            <p>SYSTEM DASHBOARD // v26.5 // ROOT ACCESS GRANTED</p>
+        </div>
+
+        <div class="grid">
+            <a href="vortex_asset_explorer.html" class="module-card">
+                <div class="module-title">[01] ASSET EXPLORER</div>
+                <div class="module-desc">Doorzoek gecompromitteerde repositories, extract payload configuraties en monitor actieve modules in het netwerk.</div>
+                <div class="status">● MODULE ONLINE</div>
+            </a>
+
+            <a href="ipfs_shell.html" class="module-card">
+                <div class="module-title">[02] IPFS RPC GATEWAY</div>
+                <div class="module-desc">Decentrale data-injectie interface. Bypass Cloudflare WAF en push bestanden direct naar het IPFS netwerk via S3 protocollen.</div>
+                <div class="status">● S3 TUNNEL ACTIEF</div>
+            </a>
+
+            <a href="kluis.html" class="module-card">
+                <div class="module-title">[03] PACKET CARVER (KLUIS)</div>
+                <div class="module-desc">Deep Packet Inspection terminal. Reconstrueer .zip archieven uit ruwe datastromen en beheer versleutelde logbestanden.</div>
+                <div class="status">● LISTENING P-MODE</div>
+            </a>
+
+            <a href="andersomland.html" class="module-card">
+                <div class="module-title">[04] IDENTITY VAULT</div>
+                <div class="module-desc">Secure Hash Matrix voor het valideren en ontsleutelen van M2M handshake tokens. Base62 AES-256 integratie.</div>
+                <div class="status">● MATRIX GESYNCHRONISEERD</div>
+            </a>
+        </div>
+
+        <div class="footer">
+            [SYS] CONNECTION SECURE // IP: MASKED // ENCRYPTION: AES-256
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VORTEX v72 // IPFS DATA-NODE</title>
+    <style>
+        :root {
+            --vortex-cyan: #00e5ff;
+            --vortex-magenta: #ff00ff;
+            --vortex-yellow: #ffea00;
+            --vortex-bg: #050608;
+            --panel-bg: #0a0c11;
+            --border: rgba(0, 229, 255, 0.25);
+            --text-dim: #6c7a89;
+            --neon-green: #00ff66;
+        }
+
+        body {
+            background-color: var(--vortex-bg);
+            color: var(--vortex-cyan);
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .header {
+            text-align: center;
+            border-bottom: 2px solid var(--vortex-magenta);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            width: 100%;
+            max-width: 900px;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 1.8rem;
+            color: #fff;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px var(--vortex-magenta);
+        }
+
+        .node-status {
+            background: rgba(0, 255, 102, 0.1);
+            border: 1px solid var(--neon-green);
+            color: var(--neon-green);
+            padding: 10px;
+            width: 100%;
+            max-width: 900px;
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 20px;
+            width: 100%;
+            max-width: 900px;
+        }
+
+        .panel {
+            background: var(--panel-bg);
+            border: 1px solid var(--border);
+            position: relative;
+            box-shadow: inset 0 0 20px rgba(0, 229, 255, 0.02);
+            padding-bottom: 15px;
+        }
+
+        .panel-title {
+            background: rgba(0, 229, 255, 0.08);
+            color: #fff;
+            padding: 10px 15px;
+            font-weight: bold;
+            font-size: 0.95rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .panel-content { padding: 15px; }
+
+        .data-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+            border-bottom: 1px dashed rgba(255,255,255,0.05);
+            padding-bottom: 4px;
+        }
+
+        .data-label { color: var(--text-dim); }
+        .data-val { color: #fff; text-align: right; font-family: monospace; word-break: break-all; }
+
+        .terminal-box {
+            background: #000;
+            border: 1px dashed var(--vortex-yellow);
+            padding: 10px;
+            font-size: 0.8rem;
+            color: var(--vortex-yellow);
+            height: 120px;
+            overflow-y: auto;
+        }
+
+        .btn-download {
+            display: block;
+            width: 100%;
+            background: var(--vortex-cyan);
+            color: #000;
+            border: none;
+            padding: 15px;
+            text-align: center;
+            margin-top: 20px;
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: bold;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: 0.3s;
+        }
+
+        .btn-download:hover {
+            background: #fff;
+            box-shadow: 0 0 20px var(--vortex-cyan);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>VORTEX // IPFS DATA-NODE</h1>
+        <p>DECENTRALIZED STORAGE BRIDGE // PROVINCIE ZEELAND</p>
+    </div>
+
+    <div class="node-status">
+        [+] NODE ONLINE // GATEWAY: FILEBASE_S3_OPTIMIZED
+    </div>
+
+    <div class="dashboard-grid">
+
+        <div class="panel">
+            <div class="panel-title" style="border-left: 4px solid var(--vortex-magenta);">
+                <span>[01] IPFS PAYLOAD DESCRIPTOR</span>
+            </div>
+            <div class="panel-content">
+                <div class="data-row"><span class="data-label">CID (Hash):</span> <span class="data-val">QmZEYHiiZip6VRkKFT3pVHGhV7aHHUCmy77V144fAkoCgC</span></div>
+                <div class="data-row"><span class="data-label">Object Type:</span> <span class="data-val">WOO Archive (application/zip)</span></div>
+                <div class="data-row"><span class="data-label">Target:</span> <span class="data-val">Provincie Zeeland</span></div>
+                <div class="data-row"><span class="data-label">Network:</span> <span class="data-val">Peer-to-Peer (P2P)</span></div>
+            </div>
+        </div>
+
+        <div class="panel">
+            <div class="panel-title" style="border-left: 4px solid var(--vortex-yellow);">
+                <span>[02] GATEWAY TELEMETRY</span>
+            </div>
+            <div class="panel-content">
+                <div class="terminal-box" id="terminal">
+                    > Handshake with combined-red-possum gateway... OK.<br>
+                    > Intercepting IPFS data stream...<br>
+                    > CID verified. Data block integrity 100%.<br>
+                    > System ready for local extraction.
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div style="width: 100%; max-width: 900px;">
+        <a href="https://combined-red-possum.myfilebase.com/ipfs/QmZEYHiiZip6VRkKFT3pVHGhV7aHHUCmy77V144fAkoCgC" class="btn-download" target="_blank">
+            [>] EXTRACT DATA VIA IPFS BRIDGE
+        </a>
+    </div>
+
+</body>
+</html>

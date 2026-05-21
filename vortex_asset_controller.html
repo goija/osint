@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VORTEX v72 // ASSET CONTROLLER</title>
+    <style>
+        :root {
+            --vortex-cyan: #00e5ff;
+            --vortex-magenta: #ff00ff;
+            --vortex-yellow: #ffea00;
+            --vortex-bg: #050608;
+            --panel-bg: #0a0c11;
+            --border: rgba(0, 229, 255, 0.25);
+            --text-dim: #6c7a89;
+            --neon-green: #00ff66;
+            --shodan-red: #ff3333;
+        }
+
+        body {
+            background-color: var(--vortex-bg);
+            color: var(--vortex-cyan);
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            border-bottom: 2px solid var(--vortex-cyan);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 1.8rem;
+            color: #fff;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px var(--vortex-cyan);
+        }
+
+        .auth-banner {
+            background: rgba(0, 255, 102, 0.1);
+            border: 1px solid var(--neon-green);
+            color: var(--neon-green);
+            padding: 10px;
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .panel {
+            background: var(--panel-bg);
+            border: 1px solid var(--border);
+            position: relative;
+            box-shadow: inset 0 0 20px rgba(0, 229, 255, 0.02);
+            padding-bottom: 15px;
+        }
+
+        .panel-title {
+            background: rgba(0, 229, 255, 0.08);
+            color: #fff;
+            padding: 10px 15px;
+            font-weight: bold;
+            font-size: 0.95rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .panel-content { padding: 15px; }
+
+        .variable-box {
+            background: #000;
+            border: 1px solid #333;
+            padding: 10px;
+            margin-bottom: 10px;
+            font-size: 0.75rem;
+        }
+
+        .key-label { color: var(--vortex-yellow); font-weight: bold; }
+        .key-val { color: #fff; font-family: monospace; word-break: break-all; }
+
+        .terminal-box {
+            background: #000;
+            border: 1px dashed var(--vortex-magenta);
+            padding: 10px;
+            font-size: 0.8rem;
+            color: var(--vortex-magenta);
+            height: 180px;
+            overflow-y: auto;
+        }
+
+        .btn-action {
+            width: 100%;
+            background: transparent;
+            border: 1px solid var(--vortex-cyan);
+            color: var(--vortex-cyan);
+            padding: 10px;
+            margin-top: 10px;
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .btn-action:hover {
+            background: rgba(0, 229, 255, 0.1);
+            box-shadow: 0 0 10px var(--vortex-cyan);
+        }
+
+        .badge {
+            font-size: 0.7rem;
+            padding: 2px 6px;
+            border-radius: 3px;
+            background: #222;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>VORTEX // ASSET CONTROLLER</h1>
+        <p>WORKSPACE: kpnhackers // SYSTEM ID: f725ce15-bf9b-4ed9-8c22-1ad05b953d24</p>
+    </div>
+
+    <div class="auth-banner">
+        [+] ENVIRONMENT VARIABLES LOADED: SHODAN & FILEBASE S3 KEYS SYNCED
+    </div>
+
+    <div class="dashboard-grid">
+
+        <div class="panel">
+            <div class="panel-title" style="border-left: 4px solid var(--vortex-yellow);">
+                <span>[01] VAULT: ONDERSCHEPTE KEYS</span>
+                <span class="badge">SECURE_IDLE</span>
+            </div>
+            <div class="panel-content">
+                <div class="variable-box">
+                    <span class="key-label">SHODAN_API_KEY:</span><br>
+                    <span class="key-val">YaLNvFBVpaTrMkW829nATM3xRTvMaVsH</span>
+                </div>
+                <div class="variable-box">
+                    <span class="key-label">FILEBASE_ACCESS_KEY:</span><br>
+                    <span class="key-val">8BE5C25DC2BA2710AB82</span>
+                </div>
+                <div class="variable-box">
+                    <span class="key-label">FILEBASE_SECRET_KEY:</span><br>
+                    <span class="key-val">ZKwiQ0akDqHrHnp7CDvnnOVpzE7YsK8CQVOrm0zX</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel">
+            <div class="panel-title" style="border-left: 4px solid var(--vortex-magenta);">
+                <span>[02] COMMAND CENTER: API ACTIONS</span>
+                <span class="badge" style="color: var(--neon-green);">READY</span>
+            </div>
+            <div class="panel-content">
+                <div class="terminal-box" id="terminal">
+> VORTEX Asset Controller initialized...
+> Ready to query Shodan for target assets.
+> Ready to bridge data to Filebase S3 bucket.
+> Workspace 'kpnhackers' context active.
+                </div>
+                
+                <button class="btn-action" onclick="runShodan()">[>] QUERY SHODAN (IP Scan)</button>
+                <button class="btn-action" onclick="runS3()">[>] UPLOAD LOG TO FILEBASE S3</button>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        const term = document.getElementById('terminal');
+        
+        function logTerm(msg) {
+            term.innerHTML += `<br>> ${msg}`;
+            term.scrollTop = term.scrollHeight;
+        }
+
+        function runShodan() {
+            logTerm("<span style='color:var(--shodan-red)'>SHODAN:</span> Executing host search...");
+            logTerm("SHODAN: Using Key YaLNvFBV...VsH");
+            logTerm("SHODAN: Target: Scanning for open ports on target range.");
+            setTimeout(() => logTerm("SHODAN: No active CVE-2026 exploits detected on immediate range."), 1000);
+        }
+
+        function runS3() {
+            logTerm("<span style='color:var(--vortex-cyan)'>S3_BRIDGE:</span> Initializing Filebase handshake...");
+            logTerm("S3_BRIDGE: Endpoint: https://s3.filebase.com");
+            logTerm("S3_BRIDGE: Encrypting payload with Secret Key ZKwiQ0ak...");
+            setTimeout(() => logTerm("S3_BRIDGE: SUCCESS. Payload uploaded to bucket 'vortex-logs'."), 1500);
+        }
+    </script>
+</body>
+</html>

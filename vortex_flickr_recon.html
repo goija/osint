@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VORTEX v72 // FLICKR DISCOVERY ACTIVE</title>
+    <style>
+        :root {
+            --vortex-cyan: #00e5ff;
+            --vortex-magenta: #ff00ff;
+            --vortex-bg: #050608;
+            --panel-bg: #0a0c11;
+            --border: rgba(0, 229, 255, 0.25);
+            --text-dim: #6c7a89;
+            --flickr-pink: #ff0084;
+            --flickr-blue: #0063dc;
+        }
+
+        body {
+            background-color: var(--vortex-bg);
+            color: var(--vortex-cyan);
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            border-bottom: 2px solid var(--flickr-pink);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 1.8rem;
+            color: #fff;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px var(--flickr-pink);
+        }
+
+        .status-header {
+            background: linear-gradient(90deg, rgba(255, 0, 132, 0.1), rgba(0, 99, 220, 0.1));
+            border: 1px solid var(--flickr-pink);
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .panel {
+            background: var(--panel-bg);
+            border: 1px solid var(--border);
+            position: relative;
+            box-shadow: inset 0 0 20px rgba(0, 229, 255, 0.02);
+            padding-bottom: 15px;
+        }
+
+        .panel-title {
+            background: rgba(0, 229, 255, 0.08);
+            color: #fff;
+            padding: 10px 15px;
+            font-weight: bold;
+            font-size: 0.95rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .panel-content { padding: 15px; }
+
+        .data-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+            border-bottom: 1px dashed rgba(255,255,255,0.05);
+            padding-bottom: 4px;
+        }
+
+        .data-label { color: var(--text-dim); }
+        .data-val { color: #fff; text-align: right; }
+
+        .terminal-box {
+            background: #000;
+            border: 1px dashed var(--vortex-magenta);
+            padding: 10px;
+            font-size: 0.8rem;
+            color: var(--vortex-magenta);
+            height: 180px;
+            overflow-y: auto;
+            font-family: monospace;
+        }
+
+        .btn-action {
+            display: block;
+            width: 100%;
+            background: transparent;
+            border: 1px solid var(--vortex-cyan);
+            color: var(--vortex-cyan);
+            padding: 12px;
+            text-align: center;
+            margin-top: 15px;
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .btn-action:hover {
+            background: rgba(0, 229, 255, 0.1);
+            box-shadow: 0 0 15px var(--vortex-cyan);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>VORTEX // FLICKR ASSET PARSER</h1>
+        <p>RECON UNIT 04 // TARGET IDENTIFIED: 204014206@N03</p>
+    </div>
+
+    <div class="status-header">
+        [+] SYNCED: Album 72177720331854384 // Asset 55078014709
+    </div>
+
+    <div class="dashboard-grid">
+
+        <div class="panel">
+            <div class="panel-title" style="border-left: 4px solid var(--flickr-blue);">
+                <span>[01] EXIF & GEOTAG STREAM</span>
+            </div>
+            <div class="panel-content">
+                <div class="data-row"><span class="data-label">Camera:</span> <span class="data-val">Sony A7R IV (Intercepted)</span></div>
+                <div class="data-row"><span class="data-label">Lens:</span> <span class="data-val">35mm f/1.4 GM</span></div>
+                <div class="data-row"><span class="data-label">GPS Coords:</span> <span class="data-val" style="color:var(--vortex-yellow);">HIDDEN_IN_DUMP</span></div>
+                <div class="data-row"><span class="data-label">Original Filename:</span> <span class="data-val">DSC04291_RAW.ARW</span></div>
+            </div>
+        </div>
+
+        <div class="panel">
+            <div class="panel-title" style="border-left: 4px solid var(--flickr-pink);">
+                <span>[02] RECONNAISSANCE TERMINAL</span>
+            </div>
+            <div class="panel-content">
+                <div class="terminal-box" id="terminal">
+> Initializing Flickr Asset Handshake...
+> Loading Album ID: 72177720331854384
+> Identifying user: 204014206@N03
+> Extracting focal point 55078014709...
+> [+] Data blocks verified.
+> [+] EXIF headers detected in JPG container.
+> [+] Scanning for stenography payload...
+                </div>
+                <button class="btn-action" onclick="alert('Zoeken naar verborgen metadata...')">[>] START DEEP ANALYSIS</button>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>

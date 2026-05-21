@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VORTEX v72 // TARGET RECON: RUDHARCOM</title>
+    <style>
+        :root {
+            --vortex-cyan: #00e5ff;
+            --vortex-magenta: #ff00ff;
+            --vortex-yellow: #ffea00;
+            --vortex-bg: #050608;
+            --panel-bg: #0a0c11;
+            --border: rgba(0, 229, 255, 0.25);
+            --text-dim: #6c7a89;
+            --alert-red: #ff0033;
+            --neon-green: #00ff66;
+        }
+
+        body {
+            background-color: var(--vortex-bg);
+            color: var(--vortex-cyan);
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            border-bottom: 2px solid var(--vortex-cyan);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 1.8rem;
+            color: #fff;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px var(--vortex-cyan);
+        }
+
+        .header p {
+            color: var(--text-dim);
+            font-size: 0.85rem;
+            margin-top: 5px;
+            text-transform: uppercase;
+        }
+
+        .success-banner {
+            background-color: rgba(0, 255, 102, 0.1);
+            border: 1px solid var(--neon-green);
+            color: var(--neon-green);
+            padding: 10px;
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 20px;
+            box-shadow: 0 0 10px rgba(0, 255, 102, 0.2);
+            text-transform: uppercase;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .panel {
+            background: var(--panel-bg);
+            border: 1px solid var(--border);
+            position: relative;
+            box-shadow: inset 0 0 20px rgba(0, 229, 255, 0.02);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .panel::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 3px;
+            background: linear-gradient(90deg, var(--vortex-cyan), transparent);
+        }
+
+        .panel-title {
+            background: rgba(0, 229, 255, 0.08);
+            color: #fff;
+            padding: 10px 15px;
+            font-weight: bold;
+            font-size: 0.95rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .panel-content {
+            padding: 15px;
+            flex-grow: 1;
+        }
+
+        .data-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+            border-bottom: 1px dashed rgba(255,255,255,0.05);
+            padding-bottom: 4px;
+        }
+
+        .data-label { color: var(--text-dim); }
+        .data-val { color: #fff; text-align: right; word-break: break-all; max-width: 60%; }
+        
+        .val-true { color: var(--neon-green); font-weight: bold; }
+        .val-false { color: var(--alert-red); }
+        .val-highlight { color: var(--vortex-yellow); font-weight: bold; }
+        .val-warn { color: #ff9900; font-weight: bold; }
+
+        .terminal-box {
+            background: #000;
+            border: 1px dashed var(--vortex-cyan);
+            padding: 10px;
+            font-size: 0.8rem;
+            color: var(--vortex-cyan);
+            height: 150px;
+            overflow-y: auto;
+            margin-top: 15px;
+            font-family: monospace;
+        }
+
+        /* Specifieke panel kleuren */
+        .panel-identity .panel-title { border-left: 4px solid var(--vortex-cyan); }
+        .panel-botmaker .panel-title { border-left: 4px solid var(--vortex-magenta); }
+        .panel-network .panel-title { border-left: 4px solid var(--vortex-yellow); }
+
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>VORTEX // TARGET RECON</h1>
+        <p>DOELWIT: https://x.com/rudharcom // STATUS: DEEP SCAN COMPLETE</p>
+    </div>
+
+    <div class="success-banner">
+        [+] SNOWFLAKE ID & NETWORK TOPOLOGY SUCCESVOL GEÏNJECTEERD
+    </div>
+
+    <div class="dashboard-grid">
+
+        <div class="panel panel-identity">
+            <div class="panel-title">
+                <span>[01] X.COM PROFILE DATA</span>
+                <span style="color: var(--vortex-cyan);">EXTRACTED</span>
+            </div>
+            <div class="panel-content">
+                <div class="data-row"><span class="data-label">Screen Name (@):</span> <span class="data-val">rudharcom</span></div>
+                <div class="data-row"><span class="data-label">User ID (Snowflake):</span> <span class="data-val val-highlight" style="font-size: 1.1rem;">175686554</span></div>
+                <div class="data-row"><span class="data-label">Account Creatie:</span> <span class="data-val val-warn">~2010 (Legacy ID Detected)</span></div>
+                <div class="data-row"><span class="data-label">Actieve Sessie (Actor):</span> <span class="data-val">u=2033886068991528962</span></div>
+                <div class="data-row"><span class="data-label">Profiel URL:</span> <span class="data-val"><a href="https://x.com/rudharcom" target="_blank" style="color:var(--vortex-cyan);">Open X.com</a></span></div>
+            </div>
+        </div>
+
+        <div class="panel panel-botmaker">
+            <div class="panel-title">
+                <span>[02] BOTMAKER CORRELATION</span>
+                <span style="color: var(--vortex-magenta);">FLAGGED</span>
+            </div>
+            <div class="panel-content">
+                <p style="font-size: 0.8rem; margin-top: 0; color: #ccc;">Kruisverwijzing met Node 8332500207456214277</p>
+                <div class="data-row"><span class="data-label">Bot API Activiteit:</span> <span class="data-val val-warn">DETECTED (APIv2 Endpoints)</span></div>
+                <div class="data-row"><span class="data-label">Geautomatiseerde Posts:</span> <span class="data-val val-true">TRUE (High Frequency)</span></div>
+                <div class="data-row"><span class="data-label">Shadowban Status:</span> <span class="data-val val-false">ACTIVE (Botmaker Decider)</span></div>
+                <div class="data-row"><span class="data-label">Live_Pipeline AV Call:</span> <span class="data-val val-false">ABORTED (Node Blocked)</span></div>
+            </div>
+        </div>
+
+        <div class="panel panel-network">
+            <div class="panel-title">
+                <span>[03] HTTP / XHR TRACE</span>
+                <span style="color: var(--vortex-yellow);">LOGGED</span>
+            </div>
+            <div class="panel-content">
+                <div class="data-row"><span class="data-label">Cloudflare Ray:</span> <span class="data-val">9ed9d6b36faeb972-AMS</span></div>
+                <div class="data-row"><span class="data-label">Server Node:</span> <span class="data-val">t4_a</span></div>
+                <div class="data-row"><span class="data-label">CSRF Token:</span> <span class="data-val" style="font-size: 0.65rem;">f5968fd90f4595e4cd17fb190a...</span></div>
+                <div class="data-row"><span class="data-label">Badge Count Polling:</span> <span class="data-val val-true">200 OK (136ms)</span></div>
+            </div>
+        </div>
+
+    </div>
+
+    <div style="max-width: 1200px; margin: 0 auto;">
+        <div class="terminal-box" id="terminal">
+            > Analyzing payload...<br>
+            > [HTTP/2 200] GET https://x.com/i/api/fleets/v1/avatar_content?user_ids=175686554<br>
+            > [+] CRITICAL: Snowflake ID 175686554 extracted from fleets API.<br>
+            > Checking rate limits... Remaining: 167. Reset at: 1776412911.<br>
+            > Cross-referencing ID with Botmaker omnichannel logic... Match found.<br>
+            > VORTEX Recon Complete. Target is exposed.
+        </div>
+    </div>
+
+</body>
+</html>

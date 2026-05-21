@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VORTEX v72 // I18N & REPO EXPLORER</title>
+    <style>
+        :root {
+            --vortex-cyan: #00e5ff;
+            --vortex-magenta: #ff00ff;
+            --vortex-yellow: #ffea00;
+            --vortex-bg: #050608;
+            --panel-bg: #0a0c11;
+            --border: rgba(0, 229, 255, 0.25);
+            --text-dim: #6c7a89;
+            --github-white: #ffffff;
+        }
+
+        body {
+            background-color: var(--vortex-bg);
+            color: var(--vortex-cyan);
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            border-bottom: 2px solid var(--github-white);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 1.8rem;
+            color: #fff;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(255,255,255,0.5);
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .panel {
+            background: var(--panel-bg);
+            border: 1px solid var(--border);
+            position: relative;
+            box-shadow: inset 0 0 20px rgba(0, 229, 255, 0.02);
+            padding-bottom: 15px;
+        }
+
+        .panel-title {
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+            padding: 10px 15px;
+            font-weight: bold;
+            font-size: 0.95rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .panel-content { padding: 15px; }
+
+        .i18n-key {
+            color: var(--vortex-yellow);
+            font-size: 0.8rem;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .i18n-val {
+            color: #ccc;
+            font-size: 0.75rem;
+            margin-bottom: 15px;
+            padding-left: 10px;
+            border-left: 1px solid var(--vortex-magenta);
+        }
+
+        .terminal-box {
+            background: #000;
+            border: 1px dashed var(--vortex-cyan);
+            padding: 10px;
+            font-size: 0.8rem;
+            color: var(--vortex-cyan);
+            height: 250px;
+            overflow-y: auto;
+            font-family: monospace;
+        }
+
+        .btn-github {
+            display: block;
+            width: 100%;
+            background: #24292e;
+            color: #fff;
+            border: 1px solid #444;
+            padding: 12px;
+            text-align: center;
+            margin-top: 15px;
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: bold;
+            text-decoration: none;
+            text-transform: uppercase;
+        }
+
+        .btn-github:hover {
+            background: #444;
+            box-shadow: 0 0 10px var(--vortex-cyan);
+        }
+
+        .highlight-magenta { color: var(--vortex-magenta); }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>VORTEX // I18N REPO CORRELATOR</h1>
+        <p>SOURCE: X.COM I18N-CLIENT // TARGET: GITHUB/GOIJA</p>
+    </div>
+
+    <div class="dashboard-grid">
+
+        <div class="panel">
+            <div class="panel-title" style="border-left: 4px solid var(--vortex-yellow);">
+                <span>[01] X.COM I18N STRINGS (EXTRACTED)</span>
+            </div>
+            <div class="panel-content">
+                <div class="i18n-key">i18n_auth_login_alert</div>
+                <div class="i18n-val">"There was a login to your account from a new device..."</div>
+
+                <div class="i18n-key">i18n_grok_analyze_btn</div>
+                <div class="i18n-val">"Analyze post with Grok"</div>
+
+                <div class="i18n-key">i18n_shadow_ban_notif</div>
+                <div class="i18n-val">"Freedom of Speech, not Reach. We've limited this tweet's visibility."</div>
+
+                <div class="i18n-key">i18n_avcall_incoming</div>
+                <div class="i18n-val">"Incoming encrypted Audio/Video call..."</div>
+            </div>
+        </div>
+
+        <div class="panel">
+            <div class="panel-title" style="border-left: 4px solid var(--github-white);">
+                <span>[02] REPOSITORY TRACE: GOIJA</span>
+            </div>
+            <div class="panel-content">
+                <div class="terminal-box" id="terminal">
+> Connecting to GitHub API...
+> Fetching repositories for user: goija
+> Analyzing commit history for 'i18n' matches...
+> Found 0 direct matches in public repos.
+> [!] CROSS-REFERENCE: Botmaker documentation match detected.
+> [!] CROSS-REFERENCE: Session hijack cookies injected in previous session.
+> Monitoring for private repo leaks...
+                </div>
+                
+                <a href="https://github.com/goija?tab=repositories" target="_blank" class="btn-github">
+                    [>] OPEN GOIJA REPOSITORIES
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>

