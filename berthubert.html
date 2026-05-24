@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VORTEX | OSINT & Ontologie Interrogator</title>
+    <style>
+        :root {
+            --primary: #00ff00;
+            --bg-color: #050505;
+            --panel-bg: #0a0a0a;
+            --border: #333;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--primary);
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        h1, h2, h3 {
+            margin-top: 0;
+            text-transform: uppercase;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 5px;
+        }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 20px;
+        }
+
+        .panel {
+            border: 1px solid var(--border);
+            background-color: var(--panel-bg);
+            padding: 15px;
+            box-shadow: 0 0 10px rgba(0, 255, 0, 0.05);
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 0.9em;
+            color: #888;
+        }
+
+        input[type="text"], select {
+            width: 100%;
+            background: #000;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+            padding: 8px;
+            font-family: inherit;
+            box-sizing: border-box;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            box-shadow: 0 0 5px var(--primary);
+        }
+
+        button {
+            width: 100%;
+            background: #000;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+            padding: 10px;
+            font-family: inherit;
+            font-weight: bold;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: all 0.2s;
+        }
+
+        button:hover {
+            background: var(--primary);
+            color: #000;
+        }
+
+        /* Geospatial Display met gecorrigeerde assen */
+        #geo-display {
+            width: 100%;
+            height: 250px;
+            border: 1px dashed #444;
+            position: relative;
+            margin-top: 15px;
+            background: radial-gradient(circle, #111 10%, #000 90%);
+        }
+
+        .axis-label {
+            position: absolute;
+            font-size: 0.8em;
+            color: #666;
+            font-weight: bold;
+        }
+
+        /* Absolute oriëntatie: Noord boven, O/W correct gespiegeld */
+        .north { top: 5px; left: 50%; transform: translateX(-50%); color: var(--primary); }
+        .south { bottom: 5px; left: 50%; transform: translateX(-50%); }
+        .east { right: 5px; top: 50%; transform: translateY(-50%); color: #aaa; } 
+        .west { left: 5px; top: 50%; transform: translateY(-50%); color: #aaa; }
+
+        .crosshair {
+            position: absolute;
+            top: 50%; left: 50%;
+            width: 10px; height: 10px;
+            border: 1px solid var(--primary);
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+        }
+
+        #terminal-output {
+            height: 300px;
+            overflow-y: auto;
+            background: #000;
+            border: 1px solid #222;
+            padding: 10px;
+            font-size: 0.85em;
+            white-space: pre-wrap;
+        }
+
+        .log-entry { margin-bottom: 5px; }
+        .log-timestamp { color: #888; margin-right: 10px; }
+        .log-sys { color: #00aaff; }
+        .log-warn { color: #ffaa00; }
+
+    </style>
+</head>
+<body>
+
+    <h1>[SYS] Ontologie & OSINT Aggregator</h1>
+
+    <div class="dashboard">
+        <div class="panel">
+            <h2>Query Engine</h2>
+            
+            <div class="input-group">
+                <label for="target-entity">Doelwit / Entiteit (Persoon, Organisatie, IP):</label>
+                <input type="text" id="target-entity" placeholder="Voer target in...">
+            </div>
+
+            <div class="input-group">
+                <label for="ontology-node">Ontologie / Semantische Knoop:</label>
+                <input type="text" id="ontology-node" placeholder="bijv. foaf:Person, dbpedia:Company">
+            </div>
+
+            <div class="input-group">
+                <label for="data-source">Primaire Databronnen:</label>
+                <select id="data-source">
+                    <option value="all">Volledig Spectrum (Clearnet + Semantisch Web)</option>
+                    <option value="gov">Overheidsregisters & WOO-documenten</option>
+                    <option value="corp">KvK, UBO & Corporate Structuren</option>
+                    <option value="cyber">Threat Intel & Domein DNS (PowerDNS logs)</option>
+                </select>
+            </div>
+
+            <button onclick="executeOSINTSearch()">Initieer Extractie</button>
+
+            <div id="geo-display">
+                <div class="axis-label north">N</div>
+                <div class="axis-label south">Z</div>
+                <div class="axis-label east">O</div>
+                <div class="axis-label west">W</div>
+                <div class="crosshair"></div>
+            </div>
+        </div>
+
+        <div class="panel">
+            <h2>Raw Telemetrie & Data Flow</h2>
+            <div id="terminal-output">
+                <div class="log-entry"><span class="log-timestamp" id="init-time"></span> <span class="log-sys">[SYSTEEM]</span> Dashboard geladen. Assen gekalibreerd. Wacht op input...</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Zet initiële tijdstempel
+        document.getElementById('init-time').innerText = new Date().toISOString().split('T')[1].split('.')[0];
+
+        function logToTerminal(message, type = 'sys') {
+            const terminal = document.getElementById('terminal-output');
+            const time = new Date().toISOString().split('T')[1].split('.')[0];
+            let colorClass = type === 'warn' ? 'log-warn' : 'log-sys';
+            
+            const logHTML = `<div class="log-entry"><span class="log-timestamp">[${time}]</span> <span class="${colorClass}">[${type.toUpperCase()}]</span> ${message}</div>`;
+            terminal.innerHTML += logHTML;
+            terminal.scrollTop = terminal.scrollHeight; // Auto-scroll
+        }
+
+        function executeOSINTSearch() {
+            const target = document.getElementById('target-entity').value;
+            const ontology = document.getElementById('ontology-node').value;
+            
+            if (!target && !ontology) {
+                logToTerminal('Fout: Geen parameters opgegeven voor extractie.', 'warn');
+                return;
+            }
+
+            logToTerminal(`Start verbinding met data-silo's voor target: [${target || 'ANY'}]...`);
+            
+            // Simulatie van asynchrone OSINT query steps
+            setTimeout(() => logToTerminal(`Parsen van ontologie node: ${ontology || 'N/A'}`), 600);
+            setTimeout(() => logToTerminal('Scannen van SPARQL endpoints en openbare registers...'), 1200);
+            setTimeout(() => logToTerminal('Waarschuwing: Semantische ruis gedetecteerd. Filter toepassen.', 'warn'), 2100);
+            setTimeout(() => logToTerminal(`Data kanaal opgebouwd. Gereed voor bitstream verwerking.`), 3000);
+        }
+    </script>
+</body>
+</html>
